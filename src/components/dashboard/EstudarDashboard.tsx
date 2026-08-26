@@ -15,7 +15,7 @@ export default function EstudarDashboard() {
         <Sidebar />
       </div>
 
-      <div className="flex min-w-[820px] flex-1 flex-col">
+      <div className="flex min-w-[820px] flex-1 flex-col overflow-hidden rounded-3xl shadow-[0px_0px_10px_rgba(0,0,0,0.1)]">
         <Topbar />
 
         <main className="flex flex-1 flex-col gap-6 bg-bg-soft-200 p-3">

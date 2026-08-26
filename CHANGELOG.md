@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-08-26 — Fix: radius faltando no Main Content (topbar+conteúdo)
+
+O "Main Content" (topbar + área principal, ambos dentro do Main Content
+Container) não tinha cantos arredondados nem sombra própria — ficava
+quadrado enquanto a sidebar já era um card arredondado. Confirmado no
+Figma: `rounded-[24px] overflow-clip drop-shadow`. Aplicado o mesmo
+tratamento — agora os dois lados (sidebar e conteúdo) flutuam como
+cards simétricos.
+
 ## 2026-08-26 — Fix: fundo da página vs fundo do conteúdo (cores trocadas)
 
 O fundo da página inteira (fora do "Main Content Container") e o fundo
