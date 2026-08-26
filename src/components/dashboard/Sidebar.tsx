@@ -3,7 +3,6 @@ import { useTheme } from "../../contexts/ThemeContext";
 import logo from "../../assets/figma/sidebar_logo_export.png";
 import iconArrowDown01 from "../../assets/figma/icon_arrow-down-01.svg";
 import iconArrowDown02 from "../../assets/figma/icon_arrow-down-02.svg";
-import iconArrowDown03 from "../../assets/figma/icon_arrow-down-03.svg";
 import iconArrowDownDouble from "../../assets/figma/icon_arrow-down-double.svg";
 import sidebarLine from "../../assets/figma/sidebar_line1.svg";
 import iconEstudar from "../../assets/figma/icon_estudar.svg";
@@ -14,13 +13,17 @@ import iconSimulados from "../../assets/figma/icon_simulados.svg";
 import iconCronograma from "../../assets/figma/icon_cronograma.svg";
 import iconRevisar from "../../assets/figma/icon_revisar.svg";
 import iconDesempenho from "../../assets/figma/icon_desempenho.svg";
+import iconCadernoErros from "../../assets/figma/icon_caderno-erros.svg";
+import iconQuestoesSalvas from "../../assets/figma/icon_questoes-salvas.svg";
+import iconBiblioteca from "../../assets/figma/icon_biblioteca.svg";
+import iconRanking from "../../assets/figma/icon_ranking.svg";
+import iconEstatisticas from "../../assets/figma/icon_estatisticas.svg";
 import promoStudents from "../../assets/figma/sidebar_promo_students.png";
 import avatar from "../../assets/figma/sidebar_avatar.jpg";
 import AccountMenu from "./AccountMenu";
 
 import darkArrowDown01 from "../../assets/figma/dark/icon_arrow-down-01.svg";
 import darkArrowDown02 from "../../assets/figma/dark/icon_arrow-down-02.svg";
-import darkArrowDown03 from "../../assets/figma/dark/icon_arrow-down-03.svg";
 import darkArrowDownDouble from "../../assets/figma/dark/icon_arrow-down-double.svg";
 import darkSidebarLine from "../../assets/figma/dark/sidebar_line.svg";
 import darkIconEstudar from "../../assets/figma/dark/icon_estudar.svg";
@@ -31,18 +34,62 @@ import darkIconProvas from "../../assets/figma/dark/icon_provas.svg";
 import darkIconCronograma from "../../assets/figma/dark/icon_cronograma.svg";
 import darkIconRevisar from "../../assets/figma/dark/icon_revisar.svg";
 import darkIconDesempenho from "../../assets/figma/dark/icon_desempenho.svg";
+import darkIconCadernoErros from "../../assets/figma/dark/icon_caderno-erros.svg";
+import darkIconQuestoesSalvas from "../../assets/figma/dark/icon_questoes-salvas.svg";
+import darkIconBiblioteca from "../../assets/figma/dark/icon_biblioteca.svg";
+import darkIconRanking from "../../assets/figma/dark/icon_ranking.svg";
+import darkIconEstatisticas from "../../assets/figma/dark/icon_estatisticas.svg";
 
-const studyItems = [
-  { icon: iconDashboard, darkIcon: darkIconDashboard, label: "Dashboard", active: true },
-  { icon: iconQuestoes, darkIcon: darkIconQuestoes, label: "Questões" },
-  { icon: iconFlashcards, darkIcon: darkIconFlashcards, label: "Flashcards" },
-  { icon: iconSimulados, darkIcon: darkIconProvas, label: "Simulados e Provas" },
-  { icon: iconCronograma, darkIcon: darkIconCronograma, label: "Cronograma" },
-];
+interface NavItem {
+  icon: string;
+  darkIcon: string;
+  label: string;
+  active?: boolean;
+}
 
-const groupHeaders = [
-  { icon: iconRevisar, darkIcon: darkIconRevisar, label: "Revisar", arrow: iconArrowDown03, darkArrow: darkArrowDown03 },
-  { icon: iconDesempenho, darkIcon: darkIconDesempenho, label: "Desempenho", arrow: iconArrowDown03, darkArrow: darkArrowDown03 },
+interface NavGroup {
+  key: string;
+  icon: string;
+  darkIcon: string;
+  label: string;
+  items: NavItem[];
+}
+
+const navGroups: NavGroup[] = [
+  {
+    key: "estudar",
+    icon: iconEstudar,
+    darkIcon: darkIconEstudar,
+    label: "Estudar",
+    items: [
+      { icon: iconDashboard, darkIcon: darkIconDashboard, label: "Dashboard", active: true },
+      { icon: iconQuestoes, darkIcon: darkIconQuestoes, label: "Questões" },
+      { icon: iconFlashcards, darkIcon: darkIconFlashcards, label: "Flashcards" },
+      { icon: iconSimulados, darkIcon: darkIconProvas, label: "Simulados e Provas" },
+      { icon: iconCronograma, darkIcon: darkIconCronograma, label: "Cronograma" },
+    ],
+  },
+  {
+    key: "revisar",
+    icon: iconRevisar,
+    darkIcon: darkIconRevisar,
+    label: "Revisar",
+    items: [
+      { icon: iconCadernoErros, darkIcon: darkIconCadernoErros, label: "Caderno de Erros" },
+      { icon: iconQuestoesSalvas, darkIcon: darkIconQuestoesSalvas, label: "Questões Salvas" },
+      { icon: iconBiblioteca, darkIcon: darkIconBiblioteca, label: "Biblioteca" },
+    ],
+  },
+  {
+    key: "desempenho",
+    icon: iconDesempenho,
+    darkIcon: darkIconDesempenho,
+    label: "Desempenho",
+    items: [
+      { icon: iconRanking, darkIcon: darkIconRanking, label: "Ranking" },
+      { icon: iconEstatisticas, darkIcon: darkIconEstatisticas, label: "Estatísticas" },
+    ],
+  },
 ];
 
 export default function Sidebar() {
@@ -51,7 +98,14 @@ export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
   const [accountAnchor, setAccountAnchor] = useState({ left: 0, bottom: 0 });
+  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({
+    estudar: true,
+    revisar: true,
+    desempenho: true,
+  });
   const footerRef = useRef<HTMLDivElement>(null);
+
+  const toggleGroup = (key: string) => setOpenGroups((prev) => ({ ...prev, [key]: !prev[key] }));
 
   const openAccountMenu = () => {
     const rect = footerRef.current?.getBoundingClientRect();
@@ -98,62 +152,58 @@ export default function Sidebar() {
         </div>
 
         <div className="flex w-full flex-col items-start gap-[15px] overflow-hidden pb-[15px]">
-          <img alt="" src={isDark ? darkSidebarLine : sidebarLine} className="h-0 w-full" />
-
-          <div className="flex w-full flex-col items-start px-3.5">
-            <div className="flex w-full items-center justify-between rounded-lg px-3 py-2">
-              <div className="flex items-center gap-2">
-                <img alt="" src={isDark ? darkIconEstudar : iconEstudar} className="size-5 shrink-0" />
-                {!collapsed && (
-                  <p className="whitespace-nowrap font-sans text-[12px] font-bold tracking-[-0.072px] text-[#62748e] dark:text-[#94a3b8]">
-                    Estudar
-                  </p>
-                )}
-              </div>
-              {!collapsed && (
-                <img alt="" src={isDark ? darkArrowDown02 : iconArrowDown02} className="size-5 rotate-180" />
-              )}
-            </div>
-          </div>
-
-          <div className="flex w-full flex-col items-start gap-1.5 px-3.5">
-            {studyItems.map((item) => (
-              <div
-                key={item.label}
-                title={collapsed ? item.label : undefined}
-                className={`flex h-[42px] w-full items-center gap-2 rounded-lg px-3 py-2 ${
-                  collapsed ? "justify-center" : ""
-                } ${item.active ? "bg-[#f1f5f9] dark:bg-[#020617]" : ""}`}
-              >
-                <img alt="" src={isDark ? item.darkIcon : item.icon} className="size-5 shrink-0" />
-                {!collapsed && (
-                  <p className="whitespace-nowrap font-sans text-[14px] font-light text-text-soft-400 dark:text-[#94a3b8]">
-                    {item.label}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-
-          <img alt="" src={isDark ? darkSidebarLine : sidebarLine} className="h-0 w-full" />
-
-          {groupHeaders.map((group) => (
-            <div key={group.label} className="flex w-full flex-col items-start px-3.5">
-              <div className="flex w-full items-center justify-between rounded-lg px-3 py-2">
-                <div className="flex items-center gap-2">
-                  <img alt="" src={isDark ? group.darkIcon : group.icon} className="size-5 shrink-0" />
-                  {!collapsed && (
-                    <p className="whitespace-nowrap font-sans text-[12px] font-bold tracking-[-0.072px] text-[#62748e] dark:text-[#94a3b8]">
-                      {group.label}
-                    </p>
-                  )}
+          {navGroups.map((group, gi) => {
+            const isOpen = openGroups[group.key];
+            return (
+              <div key={group.key} className="flex w-full flex-col items-start gap-[15px]">
+                {gi > 0 && <img alt="" src={isDark ? darkSidebarLine : sidebarLine} className="h-0 w-full" />}
+                <div className="flex w-full flex-col items-start px-3.5">
+                  <button
+                    type="button"
+                    onClick={() => toggleGroup(group.key)}
+                    className="flex w-full items-center justify-between rounded-lg px-3 py-2 hover:bg-bg-soft-200 dark:hover:bg-[#222530]"
+                  >
+                    <div className="flex items-center gap-2">
+                      <img alt="" src={isDark ? group.darkIcon : group.icon} className="size-5 shrink-0" />
+                      {!collapsed && (
+                        <p className="whitespace-nowrap font-sans text-[12px] font-bold tracking-[-0.072px] text-[#62748e] dark:text-[#94a3b8]">
+                          {group.label}
+                        </p>
+                      )}
+                    </div>
+                    {!collapsed && (
+                      <img
+                        alt=""
+                        src={isDark ? darkArrowDown02 : iconArrowDown02}
+                        className={`size-5 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                      />
+                    )}
+                  </button>
                 </div>
-                {!collapsed && (
-                  <img alt="" src={isDark ? group.darkArrow : group.arrow} className="size-5" />
+
+                {isOpen && (
+                  <div className="flex w-full flex-col items-start gap-1.5 px-3.5">
+                    {group.items.map((item) => (
+                      <div
+                        key={item.label}
+                        title={collapsed ? item.label : undefined}
+                        className={`flex h-[42px] w-full items-center gap-2 rounded-lg px-3 py-2 hover:bg-bg-soft-200 dark:hover:bg-[#222530] ${
+                          collapsed ? "justify-center" : ""
+                        } ${item.active ? "bg-[#f1f5f9] dark:bg-[#020617]" : ""}`}
+                      >
+                        <img alt="" src={isDark ? item.darkIcon : item.icon} className="size-5 shrink-0" />
+                        {!collapsed && (
+                          <p className="whitespace-nowrap font-sans text-[14px] font-light text-text-soft-400 dark:text-[#94a3b8]">
+                            {item.label}
+                          </p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 )}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
         </div>
 
@@ -170,7 +220,7 @@ export default function Sidebar() {
                 </p>
               </div>
               <div className="flex w-full items-start py-2.5">
-                <button className="flex h-10 items-center rounded-xl bg-white px-3 py-2 text-[14px] text-[#183351]">
+                <button className="flex h-10 items-center rounded-xl bg-white px-3 py-2 text-[14px] text-[#183351] transition-opacity hover:opacity-90">
                   Praticar questões
                 </button>
               </div>
@@ -192,14 +242,14 @@ export default function Sidebar() {
         className="relative flex w-full shrink-0 items-center gap-2.5 border-t border-stroke-soft-200 p-3 dark:border-[#334155]"
       >
         {collapsed ? (
-          <button type="button" onClick={openAccountMenu} className="mx-auto shrink-0">
+          <button type="button" onClick={openAccountMenu} className="mx-auto shrink-0 rounded-full transition-opacity hover:opacity-80">
             <img alt="Conta" src={avatar} className="size-11 rounded-full object-cover" />
           </button>
         ) : (
           <button
             type="button"
             onClick={openAccountMenu}
-            className="flex w-full items-center rounded-[15px] border border-stroke-soft-200 bg-bg-soft-200 py-2.5 pl-3 pr-2.5 text-left dark:border-[#334155] dark:bg-[#222530]"
+            className="flex w-full items-center rounded-[15px] border border-stroke-soft-200 bg-bg-soft-200 py-2.5 pl-3 pr-2.5 text-left transition-colors hover:bg-[#f1f5f9] dark:border-[#334155] dark:bg-[#222530] dark:hover:bg-[#2a2f3d]"
           >
             <div className="flex flex-1 items-center gap-2">
               <img alt="" src={avatar} className="size-11 shrink-0 rounded-full object-cover" />

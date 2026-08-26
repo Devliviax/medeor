@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-08-26 — Fix: sidebar sem estrutura completa (Revisar/Desempenho vazios)
+
+O commit anterior só resolveu cor (dark mode) — a navegação em si
+estava incompleta: "Revisar" e "Desempenho" eram cabeçalhos estáticos
+sem itens. Conferindo a referência completa do Figma, cada grupo tem
+uma lista real:
+
+- Revisar: Caderno de Erros, Questões Salvas, Biblioteca.
+- Desempenho: Ranking, Estatísticas.
+
+Também:
+- Os 3 grupos (Estudar/Revisar/Desempenho) agora abrem/fecham de
+  verdade ao clicar no cabeçalho (antes só decorativo), seta gira.
+- Hover em todos os itens de navegação, no botão "Praticar questões"
+  e no cartão de perfil (antes só o item ativo tinha destaque).
+- Ícones dos 5 itens novos baixados em claro e escuro.
+
 ## 2026-08-26 — Novo: modo escuro (sidebar)
 
 - Sistema de tema: `ThemeContext` (light/dark) + Tailwind v4 com
