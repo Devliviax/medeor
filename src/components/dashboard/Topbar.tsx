@@ -22,8 +22,8 @@ export default function Topbar() {
   }, []);
 
   return (
-    <header className="flex w-full items-center justify-between border-b border-stroke-soft-200 bg-bg-white-0 px-4 py-[15px]">
-      <div className="flex flex-col items-start gap-1">
+    <header className="flex w-full flex-wrap items-start justify-between gap-3 border-b border-stroke-soft-200 bg-bg-white-0 px-4 py-[15px]">
+      <div className="flex min-w-0 flex-col items-start gap-1">
         <p className="font-display text-[20px] text-[#030712]">
           Olá, <span>Arthur Taylor</span>. 👋🏻
         </p>
