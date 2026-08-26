@@ -4,11 +4,13 @@ import iconMoon from "../../assets/figma/icon_moon.svg";
 import iconSearch from "../../assets/figma/icon_search-01.svg";
 import NotificationsDropdown from "./NotificationsDropdown";
 import SearchDialog from "./SearchDialog";
+import { useTheme } from "../../contexts/ThemeContext";
 
 type ActivePanel = "notifications" | "search" | null;
 
 export default function Topbar() {
   const [activePanel, setActivePanel] = useState<ActivePanel>(null);
+  const { theme, toggleTheme } = useTheme();
   const [notifAnchor, setNotifAnchor] = useState({ top: 0, right: 0 });
   const bellWrapRef = useRef<HTMLDivElement>(null);
 
@@ -51,7 +53,12 @@ export default function Topbar() {
               <NotificationsDropdown anchor={notifAnchor} onClose={() => setActivePanel(null)} />
             )}
           </div>
-          <button aria-label="Modo escuro" className="size-6">
+          <button
+            aria-label="Modo escuro"
+            aria-pressed={theme === "dark"}
+            className="size-6"
+            onClick={toggleTheme}
+          >
             <img alt="" src={iconMoon} className="size-full" />
           </button>
           <button

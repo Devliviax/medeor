@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-08-26 — Novo: modo escuro (sidebar)
+
+- Sistema de tema: `ThemeContext` (light/dark) + Tailwind v4 com
+  `@custom-variant dark` (classe `.dark` na raiz, não media query).
+- Botão "Modo escuro" no Topbar (antes sem função) agora liga/desliga.
+- Sidebar totalmente re-skinada pro dark exatamente como o Figma
+  mostrou (6 variantes: aberta/fechada × claro/escuro): fundo
+  `#0e121b`, bordas `#334155`, texto suave `#94a3b8`, item ativo
+  `#020617`, cartão de perfil `#222530`. Ícones da navegação trocam
+  pra versão dark (arquivos SVG próprios, não filtro CSS).
+- **Escopo**: só a sidebar tem design dark no Figma até agora — resto
+  do dashboard (topbar/cards) continua claro quando o modo escuro liga.
+  Avisar se quiser que eu estenda pro resto sem referência de design.
+
 ## 2026-08-26 — Fix: texto vazando por cima do dropdown de notificações
 
 Bug real (confirmado pelo usuário, não só artefato de screenshot): o

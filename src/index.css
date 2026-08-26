@@ -7,6 +7,8 @@
 @import "@fontsource/cal-sans";
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: "Onest", system-ui, sans-serif;
   --font-display: "Cal Sans", "Onest", system-ui, sans-serif;
