@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-08-26 — Fix: Dashboard dentro do grupo Estudar (deveria ser item próprio) + width Checklist
+
+- Conferindo o frame exato do dashboard dark (140:274363) direto na
+  fonte: "Dashboard" é item PRÓPRIO, acima do grupo "Estudar" — não um
+  item dentro dele. "Estudar" tem só 4 itens: Questões, Flashcards,
+  Provas (renomeado de "Simulados e Provas"), Cronograma. Corrigido
+  pros dois temas (claro/escuro), já que a estrutura de navegação não
+  muda por tema.
+- Checklist do dia: largura fixada em 512px (antes esticava/dividia
+  com o Plano de hoje via flex).
+
 ## 2026-08-26 — Fix: sidebar sem estrutura completa (Revisar/Desempenho vazios)
 
 O commit anterior só resolveu cor (dark mode) — a navegação em si

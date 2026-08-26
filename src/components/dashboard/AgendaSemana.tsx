@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTheme } from "../../contexts/ThemeContext";
 import iconViewDay from "../../assets/figma/icon_calendar-view-day.svg";
 import iconViewWeek from "../../assets/figma/icon_calendar-view-week.svg";
 import iconViewList from "../../assets/figma/icon_calendar-view-list.svg";
@@ -7,6 +8,13 @@ import iconChevronRight from "../../assets/figma/icon_chevron-right.svg";
 import iconPlus from "../../assets/figma/icon_plus.svg";
 import iconMoreDots from "../../assets/figma/icon_more-dots.svg";
 import iconDelete from "../../assets/figma/icon_delete.svg";
+import darkIconViewDay from "../../assets/figma/dark/icon_calendar-view-day.svg";
+import darkIconViewWeek from "../../assets/figma/dark/icon_calendar-view-week.svg";
+import darkIconViewList from "../../assets/figma/dark/icon_calendar-view-list.svg";
+import darkIconChevronLeft from "../../assets/figma/dark/icon_chevron-left.svg";
+import darkIconChevronRight from "../../assets/figma/dark/icon_chevron-right.svg";
+import darkIconMoreDots from "../../assets/figma/dark/icon_more-dots.svg";
+import darkIconDelete from "../../assets/figma/dark/icon_delete.svg";
 import NovoCompromissoDialog from "./NovoCompromissoDialog";
 
 type Event = { title: string; short: string; time: string; tone: "green" | "red" | "blue" };
@@ -72,13 +80,15 @@ const monthWeeks: { date: number; currentMonth: boolean; events?: Event[] }[][] 
 
 type View = "week" | "month" | "list";
 
-const viewButtons: { view: View; icon: string; label: string }[] = [
-  { view: "month", icon: iconViewDay, label: "Button - Mês" },
-  { view: "week", icon: iconViewWeek, label: "Button - Semana" },
-  { view: "list", icon: iconViewList, label: "Button - Lista" },
+const viewButtons: { view: View; icon: string; darkIcon: string; label: string }[] = [
+  { view: "month", icon: iconViewDay, darkIcon: darkIconViewDay, label: "Button - Mês" },
+  { view: "week", icon: iconViewWeek, darkIcon: darkIconViewWeek, label: "Button - Semana" },
+  { view: "list", icon: iconViewList, darkIcon: darkIconViewList, label: "Button - Lista" },
 ];
 
 export default function AgendaSemana() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const [view, setView] = useState<View>("week");
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -86,16 +96,16 @@ export default function AgendaSemana() {
   const listItems = days.flatMap((day) => day.events.map((ev) => ({ day, ev })));
 
   return (
-    <div className="flex h-[366px] w-full flex-col items-start overflow-hidden rounded-[22.4px] bg-bg-white-0">
+    <div className="flex h-[366px] w-full flex-col items-start overflow-hidden rounded-[22.4px] bg-bg-white-0 dark:bg-[#181b25]">
       <div className="flex w-full items-center gap-3 px-5 py-4">
-        <h2 className="text-[18px] font-semibold tracking-[-0.8895px] text-[#0f1f37]">
+        <h2 className="text-[18px] font-semibold tracking-[-0.8895px] text-[#0f1f37] dark:text-[#f8fafc]">
           16 – 22 Ago 2026
         </h2>
-        <button type="button" className="text-[14px] font-medium tracking-[-0.1504px] text-[rgba(15,31,55,0.8)]">
+        <button type="button" className="text-[14px] font-medium tracking-[-0.1504px] text-[rgba(15,31,55,0.8)] dark:text-[#94a3b8]">
           Hoje
         </button>
         <div className="ml-auto flex items-center gap-2">
-          <div className="flex items-center gap-1 rounded-full bg-[#ecf1f5] p-1">
+          <div className="flex items-center gap-1 rounded-full bg-[#ecf1f5] p-1 dark:bg-[#222530]">
             {viewButtons.map((btn) => (
               <button
                 key={btn.view}
@@ -104,18 +114,28 @@ export default function AgendaSemana() {
                 aria-pressed={view === btn.view}
                 onClick={() => setView(btn.view)}
                 className={`flex size-8 items-center justify-center rounded-full ${
-                  view === btn.view ? "bg-bg-white-0 drop-shadow-[0px_1px_1.5px_rgba(0,0,0,0.1)]" : ""
+                  view === btn.view
+                    ? "bg-bg-white-0 drop-shadow-[0px_1px_1.5px_rgba(0,0,0,0.1)] dark:bg-[#181b25]"
+                    : ""
                 }`}
               >
-                <img alt="" src={btn.icon} className="size-4" />
+                <img alt="" src={isDark ? btn.darkIcon : btn.icon} className="size-4" />
               </button>
             ))}
           </div>
-          <button type="button" aria-label="Semana anterior" className="flex size-9 items-center justify-center rounded-xl">
-            <img alt="" src={iconChevronLeft} className="size-4" />
+          <button
+            type="button"
+            aria-label="Semana anterior"
+            className="flex size-9 items-center justify-center rounded-xl hover:bg-bg-soft-200 dark:hover:bg-[#222530]"
+          >
+            <img alt="" src={isDark ? darkIconChevronLeft : iconChevronLeft} className="size-4" />
           </button>
-          <button type="button" aria-label="Próxima semana" className="flex size-9 items-center justify-center rounded-xl">
-            <img alt="" src={iconChevronRight} className="size-4" />
+          <button
+            type="button"
+            aria-label="Próxima semana"
+            className="flex size-9 items-center justify-center rounded-xl hover:bg-bg-soft-200 dark:hover:bg-[#222530]"
+          >
+            <img alt="" src={isDark ? darkIconChevronRight : iconChevronRight} className="size-4" />
           </button>
           <button
             type="button"
@@ -129,18 +149,20 @@ export default function AgendaSemana() {
       </div>
 
       {isEmpty && view !== "month" ? (
-        <div className="flex w-full flex-1 items-center justify-center border-t border-[#e1e5ea] px-5 py-8">
-          <p className="text-[14px] tracking-[-0.1504px] text-[#6a727d]">Nenhum compromisso nesta semana.</p>
+        <div className="flex w-full flex-1 items-center justify-center border-t border-[#e1e5ea] px-5 py-8 dark:border-[#334155]">
+          <p className="text-[14px] tracking-[-0.1504px] text-[#6a727d] dark:text-[#94a3b8]">
+            Nenhum compromisso nesta semana.
+          </p>
         </div>
       ) : view === "week" ? (
         <>
-          <div className="flex h-[221px] w-full items-stretch border-t border-[#e1e5ea]">
+          <div className="flex h-[221px] w-full items-stretch border-t border-[#e1e5ea] dark:border-[#334155]">
             {days.map((day, i) => (
               <div
                 key={day.label}
                 className={`flex min-h-[180px] flex-1 flex-col items-start overflow-y-auto p-2 ${
-                  i < days.length - 1 ? "border-r border-[#e1e5ea]" : ""
-                } ${day.events.length === 0 ? "bg-[rgba(236,241,245,0.6)]" : ""}`}
+                  i < days.length - 1 ? "border-r border-[#e1e5ea] dark:border-[#334155]" : ""
+                } ${day.events.length === 0 ? "bg-[rgba(236,241,245,0.6)] dark:bg-[rgba(34,37,48,0.6)]" : ""}`}
               >
                 {day.events.map((ev, j) => (
                   <div key={j} className={`w-full rounded-[14.4px] px-2.5 py-2 ${j > 0 ? "mt-2" : ""} ${tones[ev.tone].bg}`}>
@@ -152,12 +174,18 @@ export default function AgendaSemana() {
                   </div>
                 ))}
                 {day.events.length > 0 && (
-                  <button type="button" className="mt-2 flex items-center justify-center rounded-[14.4px] py-2">
-                    <img alt="" src={iconMoreDots} className="size-3.5" />
+                  <button
+                    type="button"
+                    className="mt-2 flex items-center justify-center rounded-[14.4px] py-2 hover:bg-bg-soft-200 dark:hover:bg-[#222530]"
+                  >
+                    <img alt="" src={isDark ? darkIconMoreDots : iconMoreDots} className="size-3.5" />
                   </button>
                 )}
                 {day.events.length === 0 && (
-                  <button type="button" className="flex h-9 w-full items-center justify-center rounded-[14.4px] text-[14px] tracking-[-0.1504px] text-[#6a727d]">
+                  <button
+                    type="button"
+                    className="flex h-9 w-full items-center justify-center rounded-[14.4px] text-[14px] tracking-[-0.1504px] text-[#6a727d] dark:text-[#94a3b8]"
+                  >
                     —
                   </button>
                 )}
@@ -168,25 +196,27 @@ export default function AgendaSemana() {
           <div className="flex w-full items-center px-1.5 py-4">
             {days.map((day) => (
               <div key={day.label} className="flex flex-1 flex-col items-center gap-0.5">
-                <p className="text-[12px] text-[#6d7279]">{day.label}</p>
-                <p className="text-[12px] font-medium text-[#15181e]">{day.date}</p>
+                <p className="text-[12px] text-[#6d7279] dark:text-[#94a3b8]">{day.label}</p>
+                <p className="text-[12px] font-medium text-[#15181e] dark:text-[#f8fafc]">{day.date}</p>
               </div>
             ))}
           </div>
         </>
       ) : view === "month" ? (
-        <div className="grid w-full flex-1 grid-cols-7 grid-rows-5 border-t border-[#e1e5ea]">
+        <div className="grid w-full flex-1 grid-cols-7 grid-rows-5 border-t border-[#e1e5ea] dark:border-[#334155]">
           {monthWeeks.map((week, wi) =>
             week.map((cell, ci) => (
               <div
                 key={`${wi}-${ci}`}
-                className={`flex flex-col items-start justify-center border-r border-b border-[#e1e5ea] p-2 ${
+                className={`flex flex-col items-start justify-center border-r border-b border-[#e1e5ea] p-2 dark:border-[#334155] ${
                   ci === week.length - 1 ? "border-r-0" : ""
                 }`}
               >
                 <p
                   className={`text-[12px] font-black leading-4 ${
-                    cell.currentMonth ? "text-[#0f1f37]" : "text-[rgba(106,114,125,0.5)]"
+                    cell.currentMonth
+                      ? "text-[#0f1f37] dark:text-[#f8fafc]"
+                      : "text-[rgba(106,114,125,0.5)] dark:text-[rgba(148,163,184,0.5)]"
                   }`}
                 >
                   {cell.date}
@@ -203,23 +233,29 @@ export default function AgendaSemana() {
           )}
         </div>
       ) : (
-        <div className="flex w-full flex-1 flex-col items-start overflow-y-auto border-t border-[#e1e5ea]">
+        <div className="flex w-full flex-1 flex-col items-start overflow-y-auto border-t border-[#e1e5ea] dark:border-[#334155]">
           {listItems.map(({ day, ev }, i) => (
             <div
               key={i}
               className={`flex w-full items-center gap-3 px-5 py-3 ${
-                i < listItems.length - 1 ? "border-b border-[#e1e5ea]" : ""
+                i < listItems.length - 1 ? "border-b border-[#e1e5ea] dark:border-[#334155]" : ""
               }`}
             >
               <span className={`size-2 shrink-0 rounded-full ${tones[ev.tone].dot}`} />
               <div className="flex min-w-0 flex-1 flex-col items-start">
-                <p className="w-full truncate text-[14px] font-medium tracking-[-0.1504px] text-[#0f1f37]">{ev.title}</p>
-                <p className="w-full truncate text-[12px] text-[#6a727d]">
+                <p className="w-full truncate text-[14px] font-medium tracking-[-0.1504px] text-[#0f1f37] dark:text-[#f8fafc]">
+                  {ev.title}
+                </p>
+                <p className="w-full truncate text-[12px] text-[#6a727d] dark:text-[#94a3b8]">
                   {day.fullLabel} {day.date} · {ev.time} · {ev.short}
                 </p>
               </div>
-              <button type="button" aria-label="Remover" className="flex size-9 shrink-0 items-center justify-center rounded-xl">
-                <img alt="" src={iconDelete} className="size-4" />
+              <button
+                type="button"
+                aria-label="Remover"
+                className="flex size-9 shrink-0 items-center justify-center rounded-xl hover:bg-bg-soft-200 dark:hover:bg-[#222530]"
+              >
+                <img alt="" src={isDark ? darkIconDelete : iconDelete} className="size-4" />
               </button>
             </div>
           ))}

@@ -23,10 +23,10 @@ const ranking = [
 
 export default function LigaRanking() {
   return (
-    <div className="flex h-[304px] w-full flex-col items-start rounded-[22px] bg-bg-white-0 p-6">
+    <div className="flex h-[304px] w-full flex-col items-start rounded-[22px] bg-bg-white-0 p-6 dark:bg-[#222530]">
       <div className="flex w-full items-center justify-between">
-        <p className="text-[14px] font-medium tracking-[-0.1504px] text-[#020618]">Corrida da liga</p>
-        <p className="text-[12px] text-[#62748e]">Ranking</p>
+        <p className="text-[14px] font-medium tracking-[-0.1504px] text-[#020618] dark:text-[#f8fafc]">Corrida da liga</p>
+        <p className="text-[12px] text-[#62748e] dark:text-[#94a3b8]">Ranking</p>
       </div>
 
       <div className="flex w-full items-center gap-8 pt-6">
@@ -44,18 +44,18 @@ export default function LigaRanking() {
             </div>
           </div>
           <div className="flex w-36 flex-col items-start">
-            <p className="text-[14px] font-black tracking-[-0.1504px] text-[#020618]">Liga Calouro</p>
-            <p className="pt-1 text-[12px] leading-[19.5px] text-[#62748e]">
+            <p className="text-[14px] font-black tracking-[-0.1504px] text-[#020618] dark:text-[#f8fafc]">Liga Calouro</p>
+            <p className="pt-1 text-[12px] leading-[19.5px] text-[#62748e] dark:text-[#94a3b8]">
               Faltam 485 pontos para Acadêmico
             </p>
           </div>
         </div>
 
         <div className="flex flex-1 items-center gap-8">
-          <div className="h-full flex-[540] rounded-[22px] bg-[rgba(235,241,245,0.5)] p-4">
+          <div className="h-full flex-[540] rounded-[22px] bg-[rgba(235,241,245,0.5)] p-4 dark:bg-[rgba(2,6,23,0.5)]">
             <div className="flex h-full w-full flex-col">
               <div className="flex flex-1 items-stretch gap-2">
-                <div className="flex h-[140px] flex-col justify-between pb-px pr-1 text-right text-[10px] text-[#6a7683]">
+                <div className="flex h-[140px] flex-col justify-between pb-px pr-1 text-right text-[10px] text-[#6a7683] dark:text-[#94a3b8]">
                   {yAxis.map((y) => (
                     <span key={y}>{y}</span>
                   ))}
@@ -63,7 +63,7 @@ export default function LigaRanking() {
                 <div className="relative flex h-[140px] flex-1 items-end justify-between">
                   <div className="pointer-events-none absolute inset-0 flex flex-col justify-between">
                     {yAxis.map((y) => (
-                      <div key={y} className="border-t border-dashed border-[#dfe5ea]" />
+                      <div key={y} className="border-t border-dashed border-[#dfe5ea] dark:border-[#334155]" />
                     ))}
                   </div>
                   {weeks.map((w) => (
@@ -80,7 +80,7 @@ export default function LigaRanking() {
                 <div className="w-[18px] shrink-0" />
                 <div className="flex flex-1 justify-between">
                   {weeks.map((w) => (
-                    <span key={w.label} className="flex-1 text-center text-[10px] text-[#6a7683]">
+                    <span key={w.label} className="flex-1 text-center text-[10px] text-[#6a7683] dark:text-[#94a3b8]">
                       {w.label}
                     </span>
                   ))}
@@ -94,20 +94,20 @@ export default function LigaRanking() {
               <div
                 key={r.pos}
                 className={`flex items-center gap-3 rounded-[18px] px-3 py-2 ${
-                  r.you ? "bg-[#ebf1f5]" : "bg-[rgba(235,241,245,0.4)]"
+                  r.you ? "bg-[#ebf1f5] dark:bg-[#020617]" : "bg-[rgba(235,241,245,0.4)] dark:bg-[rgba(2,6,23,0.4)]"
                 }`}
               >
-                <span className={`text-[12px] ${r.you ? "font-medium" : ""} text-[#6a7683]`}>
+                <span className={`text-[12px] ${r.you ? "font-medium" : ""} text-[#6a7683] dark:text-[#94a3b8]`}>
                   {r.pos}
                 </span>
                 <span
-                  className={`flex-1 truncate text-[14px] tracking-[-0.1504px] text-[#112a43] ${
+                  className={`flex-1 truncate text-[14px] tracking-[-0.1504px] text-[#112a43] dark:text-[#38bdf8] ${
                     r.you ? "font-medium" : ""
                   }`}
                 >
                   {r.name}
                 </span>
-                <span className={`text-[12px] ${r.you ? "font-medium" : ""} text-[#6a7683]`}>
+                <span className={`text-[12px] ${r.you ? "font-medium" : ""} text-[#6a7683] dark:text-[#94a3b8]`}>
                   {r.pts}
                 </span>
               </div>

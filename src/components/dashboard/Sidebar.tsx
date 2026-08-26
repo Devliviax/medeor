@@ -62,10 +62,9 @@ const navGroups: NavGroup[] = [
     darkIcon: darkIconEstudar,
     label: "Estudar",
     items: [
-      { icon: iconDashboard, darkIcon: darkIconDashboard, label: "Dashboard", active: true },
       { icon: iconQuestoes, darkIcon: darkIconQuestoes, label: "Questões" },
       { icon: iconFlashcards, darkIcon: darkIconFlashcards, label: "Flashcards" },
-      { icon: iconSimulados, darkIcon: darkIconProvas, label: "Simulados e Provas" },
+      { icon: iconSimulados, darkIcon: darkIconProvas, label: "Provas" },
       { icon: iconCronograma, darkIcon: darkIconCronograma, label: "Cronograma" },
     ],
   },
@@ -152,6 +151,24 @@ export default function Sidebar() {
         </div>
 
         <div className="flex w-full flex-col items-start gap-[15px] overflow-hidden pb-[15px]">
+          <img alt="" src={isDark ? darkSidebarLine : sidebarLine} className="h-0 w-full" />
+
+          <div className="flex w-full flex-col items-start px-3.5">
+            <div
+              title={collapsed ? "Dashboard" : undefined}
+              className={`flex h-[42px] w-full items-center gap-2 rounded-lg px-3 py-2 bg-[#f1f5f9] dark:bg-[#020617] ${
+                collapsed ? "justify-center" : ""
+              }`}
+            >
+              <img alt="" src={isDark ? darkIconDashboard : iconDashboard} className="size-5 shrink-0" />
+              {!collapsed && (
+                <p className="whitespace-nowrap font-sans text-[12px] font-bold tracking-[-0.072px] text-[#62748e] dark:text-[#94a3b8]">
+                  Dashboard
+                </p>
+              )}
+            </div>
+          </div>
+
           {navGroups.map((group, gi) => {
             const isOpen = openGroups[group.key];
             return (

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTheme } from "../../contexts/ThemeContext";
 import iconClose from "../../assets/figma/icon_close.svg";
 import iconChevronDown from "../../assets/figma/icon_chevron-down.svg";
 import iconCategoryProva from "../../assets/figma/icon_category-prova.svg";
@@ -7,21 +8,31 @@ import iconCategoryEstudo from "../../assets/figma/icon_category-estudo.svg";
 import iconCategoryLembrete from "../../assets/figma/icon_category-lembrete.svg";
 import iconCategoryPessoal from "../../assets/figma/icon_category-pessoal.svg";
 import iconCategoryMentoria from "../../assets/figma/icon_category-mentoria.svg";
+import darkIconClose from "../../assets/figma/dark/icon_close.svg";
+import darkIconChevronDown from "../../assets/figma/dark/icon_chevron-down.svg";
+import darkIconCategoryProva from "../../assets/figma/dark/icon_category-prova.svg";
+import darkIconCategoryAula from "../../assets/figma/dark/icon_category-aula.svg";
+import darkIconCategoryEstudo from "../../assets/figma/dark/icon_category-estudo.svg";
+import darkIconCategoryLembrete from "../../assets/figma/dark/icon_category-lembrete.svg";
+import darkIconCategoryPessoal from "../../assets/figma/dark/icon_category-pessoal.svg";
+import darkIconCategoryMentoria from "../../assets/figma/dark/icon_category-mentoria.svg";
 
 type Category = "Prova" | "Aula" | "Estudo" | "Lembrete" | "Pessoal" | "Mentoria";
 
-const categories: { value: Category; icon: string }[] = [
-  { value: "Prova", icon: iconCategoryProva },
-  { value: "Aula", icon: iconCategoryAula },
-  { value: "Estudo", icon: iconCategoryEstudo },
-  { value: "Lembrete", icon: iconCategoryLembrete },
-  { value: "Pessoal", icon: iconCategoryPessoal },
-  { value: "Mentoria", icon: iconCategoryMentoria },
+const categories: { value: Category; icon: string; darkIcon: string }[] = [
+  { value: "Prova", icon: iconCategoryProva, darkIcon: darkIconCategoryProva },
+  { value: "Aula", icon: iconCategoryAula, darkIcon: darkIconCategoryAula },
+  { value: "Estudo", icon: iconCategoryEstudo, darkIcon: darkIconCategoryEstudo },
+  { value: "Lembrete", icon: iconCategoryLembrete, darkIcon: darkIconCategoryLembrete },
+  { value: "Pessoal", icon: iconCategoryPessoal, darkIcon: darkIconCategoryPessoal },
+  { value: "Mentoria", icon: iconCategoryMentoria, darkIcon: darkIconCategoryMentoria },
 ];
 
 type Props = { open: boolean; onClose: () => void };
 
 export default function NovoCompromissoDialog({ open, onClose }: Props) {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const [titulo, setTitulo] = useState("");
   const [categoria, setCategoria] = useState<Category>("Estudo");
   const [diaInteiro, setDiaInteiro] = useState(false);
@@ -59,7 +70,7 @@ export default function NovoCompromissoDialog({ open, onClose }: Props) {
         role="dialog"
         aria-modal="true"
         aria-labelledby="novo-compromisso-title"
-        className="relative flex w-full max-w-[510px] max-h-[90vh] flex-col gap-4 overflow-y-auto rounded-[14.4px] border border-[#e1e5ea] bg-bg-white-0 p-6 drop-shadow-[0px_10px_7.5px_rgba(0,0,0,0.1),0px_4px_3px_rgba(0,0,0,0.1)]"
+        className="relative flex w-full max-w-[510px] max-h-[90vh] flex-col gap-4 overflow-y-auto rounded-[14.4px] border border-[#e1e5ea] bg-bg-white-0 p-6 drop-shadow-[0px_10px_7.5px_rgba(0,0,0,0.1),0px_4px_3px_rgba(0,0,0,0.1)] dark:border-0 dark:bg-[#222530]"
       >
         <button
           type="button"
@@ -67,21 +78,21 @@ export default function NovoCompromissoDialog({ open, onClose }: Props) {
           onClick={onClose}
           className="absolute right-4 top-4 flex size-6 items-center justify-center rounded-[10.4px] opacity-70"
         >
-          <img alt="" src={iconClose} className="size-4" />
+          <img alt="" src={isDark ? darkIconClose : iconClose} className="size-4" />
         </button>
 
         <div className="flex flex-col items-start">
-          <h2 id="novo-compromisso-title" className="pb-1.5 text-[18px] font-black leading-[18px] tracking-[-0.8895px] text-[#0f1f37]">
+          <h2 id="novo-compromisso-title" className="pb-1.5 text-[18px] font-black leading-[18px] tracking-[-0.8895px] text-[#0f1f37] dark:text-white">
             Novo compromisso
           </h2>
-          <p className="text-[14px] leading-5 tracking-[-0.1504px] text-[#6a727d]">
+          <p className="text-[14px] leading-5 tracking-[-0.1504px] text-[#6a727d] dark:text-[#6a727d]">
             Preencha os detalhes do compromisso.
           </p>
         </div>
 
         <form className="flex flex-col items-start gap-4" onSubmit={handleSubmit}>
           <div className="flex w-full flex-col items-start gap-1.5">
-            <label htmlFor="titulo" className="text-[14px] font-medium tracking-[-0.1504px] text-[#0f1f37]">
+            <label htmlFor="titulo" className="text-[14px] font-medium tracking-[-0.1504px] text-[#0f1f37] dark:text-white">
               Título *
             </label>
             <input
@@ -91,12 +102,12 @@ export default function NovoCompromissoDialog({ open, onClose }: Props) {
               value={titulo}
               onChange={(e) => setTitulo(e.target.value)}
               placeholder="Ex.: Simulado — 90 questões"
-              className="h-9 w-full rounded-[12.4px] border border-[#e1e5ea] px-3 py-1 text-[14px] tracking-[-0.1504px] text-[#0f1f37] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] placeholder:text-[#6a727d] focus:outline-none"
+              className="h-9 w-full rounded-[12.4px] border border-[#e1e5ea] px-3 py-1 text-[14px] tracking-[-0.1504px] text-[#0f1f37] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] placeholder:text-[#6a727d] focus:outline-none dark:border-[#334155] dark:bg-[#181b25] dark:text-white dark:placeholder:text-[#6a727d]"
             />
           </div>
 
           <div className="flex w-full flex-col items-start gap-1.5">
-            <span className="text-[14px] font-medium tracking-[-0.1504px] text-[#0f1f37]">Categoria</span>
+            <span className="text-[14px] font-medium tracking-[-0.1504px] text-[#0f1f37] dark:text-white">Categoria</span>
             <div className="grid w-full grid-cols-3 gap-2">
               {categories.map((cat) => {
                 const active = categoria === cat.value;
@@ -108,11 +119,11 @@ export default function NovoCompromissoDialog({ open, onClose }: Props) {
                     onClick={() => setCategoria(cat.value)}
                     className={`flex items-center gap-2 rounded-[14.4px] border p-2 text-[14px] tracking-[-0.1504px] ${
                       active
-                        ? "border-[#152946] bg-[rgba(21,41,70,0.1)] text-[#0f1f37]"
-                        : "border-[#e1e5ea] bg-bg-white-0 text-[#6a727d]"
+                        ? "border-[#152946] bg-[rgba(21,41,70,0.1)] text-[#0f1f37] dark:border-[#525866] dark:bg-[#0e121b] dark:text-white"
+                        : "border-[#e1e5ea] bg-bg-white-0 text-[#6a727d] dark:border-[#334155] dark:bg-[#181b25] dark:text-[#6a727d]"
                     }`}
                   >
-                    <img alt="" src={cat.icon} className="size-4" />
+                    <img alt="" src={isDark ? cat.darkIcon : cat.icon} className="size-4" />
                     <span>{cat.value}</span>
                   </button>
                 );
@@ -120,10 +131,10 @@ export default function NovoCompromissoDialog({ open, onClose }: Props) {
             </div>
           </div>
 
-          <div className="flex w-full items-center justify-between rounded-[18.4px] border border-[#e1e5ea] px-3 py-2.5">
+          <div className="flex w-full items-center justify-between rounded-[18.4px] border border-[#e1e5ea] px-3 py-2.5 dark:border-[#334155]">
             <div className="flex flex-col items-start">
-              <span className="text-[14px] font-medium tracking-[-0.1504px] text-[#0f1f37]">Dia inteiro</span>
-              <span className="text-[12px] text-[#6a727d]">Marque se durar o dia todo.</span>
+              <span className="text-[14px] font-medium tracking-[-0.1504px] text-[#0f1f37] dark:text-white">Dia inteiro</span>
+              <span className="text-[12px] text-[#6a727d] dark:text-[#6a727d]">Marque se durar o dia todo.</span>
             </div>
             <button
               type="button"
@@ -131,16 +142,16 @@ export default function NovoCompromissoDialog({ open, onClose }: Props) {
               aria-checked={diaInteiro}
               onClick={() => setDiaInteiro((v) => !v)}
               className={`flex h-5 w-9 shrink-0 items-center rounded-full p-0.5 drop-shadow-[0px_1px_1.5px_rgba(0,0,0,0.1)] transition-colors ${
-                diaInteiro ? "justify-end bg-[#152946]" : "justify-start bg-[#e1e5ea]"
+                diaInteiro ? "justify-end bg-[#152946]" : "justify-start bg-[#e1e5ea] dark:bg-[#181b25]"
               }`}
             >
-              <span className="size-4 rounded-full bg-[#f4f7fa] shadow-[0px_1px_2px_rgba(0,0,0,0.15)]" />
+              <span className="size-4 rounded-full bg-[#f4f7fa] shadow-[0px_1px_2px_rgba(0,0,0,0.15)] dark:bg-[#e1e4ea]" />
             </button>
           </div>
 
           <div className="grid w-full grid-cols-2 gap-3">
             <div className="flex flex-col items-start gap-1.5">
-              <label htmlFor="data-inicio" className="text-[14px] font-medium tracking-[-0.1504px] text-[#0f1f37]">
+              <label htmlFor="data-inicio" className="text-[14px] font-medium tracking-[-0.1504px] text-[#0f1f37] dark:text-white">
                 Início
               </label>
               <input
@@ -148,11 +159,11 @@ export default function NovoCompromissoDialog({ open, onClose }: Props) {
                 type="date"
                 value={dataInicio}
                 onChange={(e) => setDataInicio(e.target.value)}
-                className="h-9 w-full rounded-[12.4px] border border-[#e1e5ea] px-3 text-[14px] tracking-[-0.1504px] text-[#0f1f37] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] focus:outline-none"
+                className="h-9 w-full rounded-[12.4px] border border-[#e1e5ea] px-3 text-[14px] tracking-[-0.1504px] text-[#0f1f37] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] focus:outline-none dark:border-[#334155] dark:bg-[#181b25] dark:text-white [color-scheme:light] dark:[color-scheme:dark]"
               />
             </div>
             <div className="flex flex-col items-start gap-1.5">
-              <label htmlFor="hora-inicio" className="text-[14px] font-medium tracking-[-0.1504px] text-[#0f1f37]">
+              <label htmlFor="hora-inicio" className="text-[14px] font-medium tracking-[-0.1504px] text-[#0f1f37] dark:text-white">
                 Hora início
               </label>
               <input
@@ -160,14 +171,14 @@ export default function NovoCompromissoDialog({ open, onClose }: Props) {
                 type="time"
                 value={horaInicio}
                 onChange={(e) => setHoraInicio(e.target.value)}
-                className="h-9 w-full rounded-[12.4px] border border-[#e1e5ea] px-3 text-[14px] tracking-[-0.1504px] text-[#0f1f37] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] focus:outline-none"
+                className="h-9 w-full rounded-[12.4px] border border-[#e1e5ea] px-3 text-[14px] tracking-[-0.1504px] text-[#0f1f37] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] focus:outline-none dark:border-[#334155] dark:bg-[#181b25] dark:text-white [color-scheme:light] dark:[color-scheme:dark]"
               />
             </div>
           </div>
 
           <div className="grid w-full grid-cols-2 gap-3">
             <div className="flex flex-col items-start gap-1.5">
-              <label htmlFor="data-fim" className="text-[14px] font-medium tracking-[-0.1504px] text-[#0f1f37]">
+              <label htmlFor="data-fim" className="text-[14px] font-medium tracking-[-0.1504px] text-[#0f1f37] dark:text-white">
                 Fim
               </label>
               <input
@@ -175,11 +186,11 @@ export default function NovoCompromissoDialog({ open, onClose }: Props) {
                 type="date"
                 value={dataFim}
                 onChange={(e) => setDataFim(e.target.value)}
-                className="h-9 w-full rounded-[12.4px] border border-[#e1e5ea] px-3 text-[14px] tracking-[-0.1504px] text-[#0f1f37] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] focus:outline-none"
+                className="h-9 w-full rounded-[12.4px] border border-[#e1e5ea] px-3 text-[14px] tracking-[-0.1504px] text-[#0f1f37] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] focus:outline-none dark:border-[#334155] dark:bg-[#181b25] dark:text-white [color-scheme:light] dark:[color-scheme:dark]"
               />
             </div>
             <div className="flex flex-col items-start gap-1.5">
-              <label htmlFor="hora-fim" className="text-[14px] font-medium tracking-[-0.1504px] text-[#0f1f37]">
+              <label htmlFor="hora-fim" className="text-[14px] font-medium tracking-[-0.1504px] text-[#0f1f37] dark:text-white">
                 Hora fim
               </label>
               <input
@@ -187,13 +198,13 @@ export default function NovoCompromissoDialog({ open, onClose }: Props) {
                 type="time"
                 value={horaFim}
                 onChange={(e) => setHoraFim(e.target.value)}
-                className="h-9 w-full rounded-[12.4px] border border-[#e1e5ea] px-3 text-[14px] tracking-[-0.1504px] text-[#0f1f37] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] focus:outline-none"
+                className="h-9 w-full rounded-[12.4px] border border-[#e1e5ea] px-3 text-[14px] tracking-[-0.1504px] text-[#0f1f37] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] focus:outline-none dark:border-[#334155] dark:bg-[#181b25] dark:text-white [color-scheme:light] dark:[color-scheme:dark]"
               />
             </div>
           </div>
 
           <div className="flex w-full flex-col items-start gap-1.5">
-            <label htmlFor="descricao" className="text-[14px] font-medium tracking-[-0.1504px] text-[#0f1f37]">
+            <label htmlFor="descricao" className="text-[14px] font-medium tracking-[-0.1504px] text-[#0f1f37] dark:text-white">
               Descrição
             </label>
             <textarea
@@ -202,12 +213,12 @@ export default function NovoCompromissoDialog({ open, onClose }: Props) {
               onChange={(e) => setDescricao(e.target.value)}
               placeholder="Adicione detalhes..."
               rows={3}
-              className="min-h-[60px] w-full resize-none rounded-[12.4px] border border-[#e1e5ea] px-3 py-2 text-[14px] tracking-[-0.1504px] text-[#0f1f37] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] placeholder:text-[#6a727d] focus:outline-none"
+              className="min-h-[60px] w-full resize-none rounded-[12.4px] border border-[#e1e5ea] px-3 py-2 text-[14px] tracking-[-0.1504px] text-[#0f1f37] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] placeholder:text-[#6a727d] focus:outline-none dark:border-[#334155] dark:bg-[#181b25] dark:text-white dark:placeholder:text-[#6a727d]"
             />
           </div>
 
           <div className="flex w-full flex-col items-start gap-1.5">
-            <label htmlFor="repeticao" className="text-[14px] font-medium tracking-[-0.1504px] text-[#0f1f37]">
+            <label htmlFor="repeticao" className="text-[14px] font-medium tracking-[-0.1504px] text-[#0f1f37] dark:text-white">
               Repetição
             </label>
             <div className="relative w-full">
@@ -215,7 +226,7 @@ export default function NovoCompromissoDialog({ open, onClose }: Props) {
                 id="repeticao"
                 value={repeticao}
                 onChange={(e) => setRepeticao(e.target.value)}
-                className="h-9 w-full appearance-none rounded-[12.4px] border border-[#e1e5ea] px-3 text-[14px] tracking-[-0.1504px] text-[#0f1f37] drop-shadow-[0px_1px_1.5px_rgba(0,0,0,0.1)] focus:outline-none"
+                className="h-9 w-full appearance-none rounded-[12.4px] border border-[#e1e5ea] px-3 text-[14px] tracking-[-0.1504px] text-[#0f1f37] drop-shadow-[0px_1px_1.5px_rgba(0,0,0,0.1)] focus:outline-none dark:border-[#334155] dark:bg-[#181b25] dark:text-white"
               >
                 <option>Não repetir</option>
                 <option>Diariamente</option>
@@ -224,7 +235,7 @@ export default function NovoCompromissoDialog({ open, onClose }: Props) {
               </select>
               <img
                 alt=""
-                src={iconChevronDown}
+                src={isDark ? darkIconChevronDown : iconChevronDown}
                 className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2"
               />
             </div>
