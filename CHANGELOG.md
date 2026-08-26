@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-08-26 — Fix: popups de notificação e conta "acompanhando" o scroll
+
+Notificações e menu de conta ficavam "grudados" fora de lugar ao rolar
+a página com o popup aberto. Fix: os dois agora fecham sozinhos ao
+detectar scroll real da página (comportamento padrão de dropdown).
+No caminho, achei e corrigi um bug que eu mesmo introduzi: o listener
+de scroll pegava até o auto-scroll do próprio clique (quando o botão
+de perfil está fora da viewport, o navegador rola até ele), fechando
+o menu de conta antes mesmo de aparecer. Corrigido com um delay de
+150ms antes de armar o listener.
+
 ## 2026-08-26 — Fix: fundo da página não mudava no modo escuro
 
 Os dois agentes que implementaram o dark mode cuidaram de cada

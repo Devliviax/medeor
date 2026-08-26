@@ -30,9 +30,12 @@ export default function NotificationsDropdown({ onClose, anchor }: Notifications
     }
     document.addEventListener("pointerdown", handlePointerDown);
     document.addEventListener("keydown", handleKeyDown);
+    const scrollTimer = window.setTimeout(() => window.addEventListener("scroll", onClose), 150);
     return () => {
       document.removeEventListener("pointerdown", handlePointerDown);
       document.removeEventListener("keydown", handleKeyDown);
+      window.clearTimeout(scrollTimer);
+      window.removeEventListener("scroll", onClose);
     };
   }, [onClose]);
 
