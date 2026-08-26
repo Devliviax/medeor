@@ -10,7 +10,7 @@ import AcoesRapidas from "./AcoesRapidas";
 
 export default function EstudarDashboard() {
   return (
-    <div className="flex min-h-screen w-full gap-3 overflow-x-auto bg-bg-soft-200 p-3">
+    <div className="flex min-h-screen w-full gap-3 overflow-x-auto bg-bg-weak-50 p-3">
       <div className="flex shrink-0 p-0">
         <Sidebar />
       </div>

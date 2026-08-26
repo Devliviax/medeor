@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-08-26 — Fix: fundo da página vs fundo do conteúdo (cores trocadas)
+
+O fundo da página inteira (fora do "Main Content Container") e o fundo
+do conteúdo principal (dentro dele) estavam usando a mesma cor
+(#F7F7F7). São dois tokens diferentes no Figma: página = `bg/weak-50`
+(#F5F5F5), conteúdo = `bg/soft-200` (#F7F7F7). Corrigido pra usar cada
+um no lugar certo.
+
 ## 2026-08-26 — Auditoria contra o Figma: gráfico, truncamento, largura
 
 Comparei screenshot real do Figma (node 144:285459) com o app rodando

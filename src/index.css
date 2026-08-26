@@ -26,6 +26,6 @@
 body {
   margin: 0;
   font-family: var(--font-sans);
-  background: var(--color-bg-soft-200);
+  background: var(--color-bg-weak-50);
   color: var(--color-text-strong-950);
 }
