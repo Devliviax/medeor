@@ -1,5 +1,24 @@
 # Changelog
 
+## 2026-08-26 — Auditoria contra o Figma: gráfico, truncamento, largura
+
+Comparei screenshot real do Figma (node 144:285459) com o app rodando
+pra achar o que ainda estava faltando/errado:
+
+- Gráfico "Corrida da liga" era só 5 pills idênticas sem dado nenhum —
+  agora tem alturas reais por semana, 2 barras destacadas (navy) nas
+  semanas de pico, eixo Y (0/25/50/75/100) e linhas de grade tracejadas,
+  batendo com os valores exatos exportados do Figma.
+- Cards de evento na agenda quebravam em várias linhas (herança de um
+  fix de sobreposição anterior); no Figma o texto trunca em 1 linha com
+  reticência. Corrigido pra `truncate`, que também elimina qualquer risco
+  de voltar a sobrepor.
+- Corrigir esse truncamento expôs um bug de layout: a linha Agenda +
+  Questão Relâmpago perdeu o split 50/50 (Questão virou uma coluna de
+  141px, esticada verticalmente). Causa: itens flex sem `min-w-0`
+  deixavam o conteúdo determinar a largura mínima de forma desigual.
+  Adicionado `min-w-0` nos dois wrappers — confirmado 550px/550px.
+
 ## 2026-08-26 — Fix: sidebar encostando na topbar
 
 - Sidebar é um card arredondado (rounded-3xl) mas estava com gap zero em

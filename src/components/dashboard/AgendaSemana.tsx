@@ -144,11 +144,11 @@ export default function AgendaSemana() {
               >
                 {day.events.map((ev, j) => (
                   <div key={j} className={`w-full rounded-[14.4px] px-2.5 py-2 ${j > 0 ? "mt-2" : ""} ${tones[ev.tone].bg}`}>
-                    <div className="flex items-start gap-1.5">
-                      <span className={`mt-1.5 size-1.5 shrink-0 rounded-full ${tones[ev.tone].dot}`} />
-                      <p className={`text-[12px] font-black leading-4 ${tones[ev.tone].text}`}>{ev.title}</p>
+                    <div className="flex min-w-0 items-center gap-1.5">
+                      <span className={`size-1.5 shrink-0 rounded-full ${tones[ev.tone].dot}`} />
+                      <p className={`min-w-0 flex-1 truncate text-[12px] font-black ${tones[ev.tone].text}`}>{ev.title}</p>
                     </div>
-                    <p className={`pt-0.5 text-[12px] leading-4 opacity-80 ${tones[ev.tone].text}`}>{ev.time}</p>
+                    <p className={`truncate pt-0.5 text-[12px] opacity-80 ${tones[ev.tone].text}`}>{ev.time}</p>
                   </div>
                 ))}
                 {day.events.length > 0 && (

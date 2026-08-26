@@ -29,10 +29,10 @@ export default function EstudarDashboard() {
           <LigaRanking />
 
           <div className="flex w-full gap-4">
-            <div className="flex flex-1 flex-col">
+            <div className="flex min-w-0 flex-1 flex-col">
               <AgendaSemana />
             </div>
-            <div className="flex flex-1 flex-col">
+            <div className="flex min-w-0 flex-1 flex-col">
               <QuestaoRelampago />
             </div>
           </div>

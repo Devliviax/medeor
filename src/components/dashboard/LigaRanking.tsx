@@ -3,7 +3,15 @@ import iconLeagueBadge from "../../assets/figma/icon_league_badge.svg";
 import ringTrack from "../../assets/figma/dash_league_ring_vector.svg";
 import ringProgress from "../../assets/figma/dash_league_ring_vector2.svg";
 
-const weeks = ["1–10 Ago", "11–20 Ago", "21–30 Ago", "31 Ago–9 Set", "10–19 Set"];
+const weeks = [
+  { label: "1–10 Ago", height: 41, dark: false },
+  { label: "11–20 Ago", height: 80, dark: true },
+  { label: "21–30 Ago", height: 44, dark: false },
+  { label: "31 Ago–9 Set", height: 120, dark: true },
+  { label: "10–19 Set", height: 51, dark: false },
+];
+
+const yAxis = [100, 75, 50, 25, 0];
 
 const ranking = [
   { pos: 472, name: "estudante_6711", pts: 36 },
@@ -45,20 +53,38 @@ export default function LigaRanking() {
 
         <div className="flex flex-1 items-center gap-8">
           <div className="h-full flex-[540] rounded-[22px] bg-[rgba(235,241,245,0.5)] p-4">
-            <div className="flex h-full w-full flex-col justify-between">
-              <div className="flex w-full flex-1 items-end justify-between border-b border-dashed border-[#dfe5ea] pb-1">
-                {weeks.map((w) => (
-                  <div key={w} className="flex flex-1 flex-col items-center gap-1">
-                    <div className="h-10 w-[34px] rounded-[12px] bg-[#9fcbe6]" />
+            <div className="flex h-full w-full flex-col">
+              <div className="flex flex-1 items-stretch gap-2">
+                <div className="flex h-[140px] flex-col justify-between pb-px pr-1 text-right text-[10px] text-[#6a7683]">
+                  {yAxis.map((y) => (
+                    <span key={y}>{y}</span>
+                  ))}
+                </div>
+                <div className="relative flex h-[140px] flex-1 items-end justify-between">
+                  <div className="pointer-events-none absolute inset-0 flex flex-col justify-between">
+                    {yAxis.map((y) => (
+                      <div key={y} className="border-t border-dashed border-[#dfe5ea]" />
+                    ))}
                   </div>
-                ))}
+                  {weeks.map((w) => (
+                    <div key={w.label} className="relative flex flex-1 flex-col items-center">
+                      <div
+                        style={{ height: `${w.height}px` }}
+                        className={`w-[34px] rounded-full ${w.dark ? "bg-[#18395d]" : "bg-[#9fcbe6]"}`}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="flex w-full justify-between pt-2">
-                {weeks.map((w) => (
-                  <span key={w} className="flex-1 text-center text-[10px] text-[#6a7683]">
-                    {w}
-                  </span>
-                ))}
+              <div className="flex w-full gap-2 pt-2">
+                <div className="w-[18px] shrink-0" />
+                <div className="flex flex-1 justify-between">
+                  {weeks.map((w) => (
+                    <span key={w.label} className="flex-1 text-center text-[10px] text-[#6a7683]">
+                      {w.label}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
