@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import iconMessage from "../../assets/figma/notif_icon_message.svg";
 import iconCpf from "../../assets/figma/notif_icon_cpf.svg";
 import iconBell from "../../assets/figma/notif_icon_bell.svg";
@@ -6,9 +7,10 @@ import divider from "../../assets/figma/notif_divider.svg";
 
 interface NotificationsDropdownProps {
   onClose: () => void;
+  anchor: { top: number; right: number };
 }
 
-export default function NotificationsDropdown({ onClose }: NotificationsDropdownProps) {
+export default function NotificationsDropdown({ onClose, anchor }: NotificationsDropdownProps) {
   const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -30,12 +32,13 @@ export default function NotificationsDropdown({ onClose }: NotificationsDropdown
     };
   }, [onClose]);
 
-  return (
+  return createPortal(
     <div
       ref={panelRef}
       role="menu"
       aria-label="Notificações"
-      className="absolute right-0 top-[calc(100%+12px)] z-50 flex w-[min(404px,calc(100vw-24px))] flex-col items-center overflow-hidden rounded-2xl bg-bg-white-0 shadow-[0px_0px_20px_0px_rgba(0,0,0,0.1)]"
+      style={{ top: anchor.top, right: anchor.right }}
+      className="fixed z-50 flex w-[min(404px,calc(100vw-24px))] flex-col items-center overflow-hidden rounded-2xl bg-bg-white-0 shadow-[0px_0px_20px_0px_rgba(0,0,0,0.1)]"
     >
       <div className="flex max-h-[300px] w-full flex-col items-center gap-[18px] overflow-y-auto py-2">
       <div className="flex w-full flex-col items-start">
@@ -110,6 +113,7 @@ export default function NotificationsDropdown({ onClose }: NotificationsDropdown
       >
         Ver todas as notificações
       </button>
-    </div>
+    </div>,
+    document.body,
   );
 }

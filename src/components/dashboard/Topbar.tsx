@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import iconBell from "../../assets/figma/icon_bell.svg";
 import iconMoon from "../../assets/figma/icon_moon.svg";
 import iconSearch from "../../assets/figma/icon_search-01.svg";
@@ -9,6 +9,16 @@ type ActivePanel = "notifications" | "search" | null;
 
 export default function Topbar() {
   const [activePanel, setActivePanel] = useState<ActivePanel>(null);
+  const [notifAnchor, setNotifAnchor] = useState({ top: 0, right: 0 });
+  const bellWrapRef = useRef<HTMLDivElement>(null);
+
+  const toggleNotifications = () => {
+    const rect = bellWrapRef.current?.getBoundingClientRect();
+    if (rect) {
+      setNotifAnchor({ top: rect.bottom + 12, right: window.innerWidth - rect.right });
+    }
+    setActivePanel((prev) => (prev === "notifications" ? null : "notifications"));
+  };
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -33,16 +43,12 @@ export default function Topbar() {
       </div>
       <div className="flex shrink-0 flex-col items-center justify-center rounded-xl border-r border-stroke-soft-200 bg-bg-white-0 px-3 py-2 drop-shadow-[0px_0px_15px_rgba(0,0,0,0.07)]">
         <div className="flex items-center gap-3.5">
-          <div className="relative">
-            <button
-              aria-label="Notificações"
-              className="size-6"
-              onClick={() => setActivePanel((prev) => (prev === "notifications" ? null : "notifications"))}
-            >
+          <div ref={bellWrapRef} className="relative">
+            <button aria-label="Notificações" className="size-6" onClick={toggleNotifications}>
               <img alt="" src={iconBell} className="size-full" />
             </button>
             {activePanel === "notifications" && (
-              <NotificationsDropdown onClose={() => setActivePanel(null)} />
+              <NotificationsDropdown anchor={notifAnchor} onClose={() => setActivePanel(null)} />
             )}
           </div>
           <button aria-label="Modo escuro" className="size-6">

@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-08-26 — Fix: texto vazando por cima do dropdown de notificações
+
+Bug real (confirmado pelo usuário, não só artefato de screenshot): o
+"48 min" do card "Plano de hoje" aparecia por cima do dropdown de
+notificações quando aberto, mesmo com o dropdown tendo z-index maior
+e fundo branco sólido — um bug de composição de camadas do Chromium
+com `overflow-hidden`/`shadow`/`z-index` aninhados. Testei várias
+hipóteses de CSS sem sucesso; a correção real foi tirar o dropdown da
+árvore de ancestrais problemática: agora renderiza via
+`createPortal` pro `document.body`, com posição calculada a partir do
+`getBoundingClientRect()` do sino (mesma técnica usada no menu de
+conta). Confirmado: sumiu.
+
 ## 2026-08-26 — Novo: menu de conta ao clicar no perfil
 
 - Adicionado `AccountMenu.tsx`: clicar no card "Arthur Taylor" (ou só o
