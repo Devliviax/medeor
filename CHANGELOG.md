@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-08-26 — Fix: alinhamento do sino + ícone dos stat cards
+
+- Sino de notificação estava ~7px mais alto que lua/busca no Topbar.
+  Causa: a div que envolve o sino (`bellWrapRef`, precisa de `relative`
+  pro popup) não era flex, então o `<button>` dentro virava
+  `inline-block` e sobrava espaço de baseline embaixo, empurrando tudo
+  pra cima. Fix: `relative flex` na div.
+- Ícone de canto dos 4 stat cards trocado de `AnalyticsUpIcon` pra
+  `ArrowUpRight03Icon` — mais coerente com o papel do ícone
+  (expandir/ver detalhes) do que um ícone de tendência.
+
 ## 2026-08-26 — Refactor: todos os ícones migrados pra Hugeicons
 
 Os ícones exportados do Figma eram, na verdade, da biblioteca

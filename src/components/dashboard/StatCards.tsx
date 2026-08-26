@@ -1,5 +1,5 @@
 import { HugeiconsIcon } from "@hugeicons/react";
-import { AnalyticsUpIcon } from "@hugeicons/core-free-icons";
+import { ArrowUpRight03Icon } from "@hugeicons/core-free-icons";
 
 const cards = [
   {
@@ -46,7 +46,7 @@ export default function StatCards() {
               {card.label}
             </p>
             <HugeiconsIcon
-              icon={AnalyticsUpIcon}
+              icon={ArrowUpRight03Icon}
               size={16}
               className={
                 card.dark

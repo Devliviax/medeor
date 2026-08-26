@@ -44,7 +44,7 @@ export default function Topbar() {
       </div>
       <div className="flex shrink-0 flex-col items-center justify-center rounded-xl border-r border-stroke-soft-200 bg-bg-white-0 px-3 py-2 drop-shadow-[0px_0px_15px_rgba(0,0,0,0.07)] dark:border-[#334155] dark:bg-[#0f172a]">
         <div className="flex items-center gap-3.5">
-          <div ref={bellWrapRef} className="relative">
+          <div ref={bellWrapRef} className="relative flex">
             <button aria-label="Notificações" className="size-6" onClick={toggleNotifications}>
               <HugeiconsIcon icon={BellIcon} size={24} className="text-[#525866] dark:text-[#94a3b8]" />
             </button>
