@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-08-26 — Fix: sidebar encostando na topbar
+
+- Sidebar é um card arredondado (rounded-3xl) mas estava com gap zero em
+  relação à topbar — o canto arredondado encontrava a quina reta da
+  topbar sem respiro, sobrando um pedaço de fundo cinza estranho no
+  encontro. Adicionado gap/padding ao redor pra sidebar flutuar como
+  card de verdade, igual ao Figma.
+
 ## 2026-08-26 — Fix: layout quebrando em telas estreitas
 
 - Topbar: ícones (sino/lua/busca) sobrepunham o texto de saudação quando a
