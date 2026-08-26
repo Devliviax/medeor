@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import logo from "../../assets/figma/sidebar_logo_export.png";
 import iconArrowDown01 from "../../assets/figma/icon_arrow-down-01.svg";
 import iconArrowDown02 from "../../assets/figma/icon_arrow-down-02.svg";
@@ -15,6 +15,7 @@ import iconRevisar from "../../assets/figma/icon_revisar.svg";
 import iconDesempenho from "../../assets/figma/icon_desempenho.svg";
 import promoStudents from "../../assets/figma/sidebar_promo_students.png";
 import avatar from "../../assets/figma/sidebar_avatar.jpg";
+import AccountMenu from "./AccountMenu";
 
 const studyItems = [
   { icon: iconDashboard, label: "Dashboard", active: true },
@@ -31,6 +32,17 @@ const groupHeaders = [
 
 export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
+  const [accountOpen, setAccountOpen] = useState(false);
+  const [accountAnchor, setAccountAnchor] = useState({ left: 0, bottom: 0 });
+  const footerRef = useRef<HTMLDivElement>(null);
+
+  const openAccountMenu = () => {
+    const rect = footerRef.current?.getBoundingClientRect();
+    if (rect) {
+      setAccountAnchor({ left: rect.left, bottom: window.innerHeight - rect.top + 8 });
+    }
+    setAccountOpen((v) => !v);
+  };
 
   return (
     <aside
@@ -154,21 +166,32 @@ export default function Sidebar() {
         )}
       </div>
 
-      <div className="flex w-full shrink-0 items-center gap-2.5 overflow-hidden border-t border-stroke-soft-200 p-3">
+      <div ref={footerRef} className="relative flex w-full shrink-0 items-center gap-2.5 border-t border-stroke-soft-200 p-3">
         {collapsed ? (
-          <img alt="" src={avatar} className="mx-auto size-11 shrink-0 rounded-full object-cover" />
+          <button type="button" onClick={openAccountMenu} className="mx-auto shrink-0">
+            <img alt="Conta" src={avatar} className="size-11 rounded-full object-cover" />
+          </button>
         ) : (
-          <div className="flex w-full items-center rounded-[15px] border border-stroke-soft-200 bg-bg-soft-200 py-2.5 pl-3 pr-2.5">
+          <button
+            type="button"
+            onClick={openAccountMenu}
+            className="flex w-full items-center rounded-[15px] border border-stroke-soft-200 bg-bg-soft-200 py-2.5 pl-3 pr-2.5 text-left"
+          >
             <div className="flex flex-1 items-center gap-2">
               <img alt="" src={avatar} className="size-11 shrink-0 rounded-full object-cover" />
               <div className="flex min-w-0 flex-1 flex-col items-start gap-0.5">
                 <p className="text-[14px] font-medium text-text-strong-950">Arthur Taylor</p>
                 <p className="w-full truncate text-[12px] text-text-soft-400">arthur@testhive.com</p>
               </div>
-              <img alt="" src={iconArrowDownDouble} className="size-5 shrink-0" />
+              <img
+                alt=""
+                src={iconArrowDownDouble}
+                className={`size-5 shrink-0 transition-transform ${accountOpen ? "rotate-180" : ""}`}
+              />
             </div>
-          </div>
+          </button>
         )}
+        {accountOpen && <AccountMenu anchor={accountAnchor} onClose={() => setAccountOpen(false)} />}
       </div>
     </aside>
   );

@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-08-26 — Novo: menu de conta ao clicar no perfil
+
+- Adicionado `AccountMenu.tsx`: clicar no card "Arthur Taylor" (ou só o
+  avatar, sidebar recolhida) no rodapé da sidebar abre um menu com
+  Perfil / Assinatura / Suporte / Sair. Fecha em clique fora ou Escape.
+- Renderizado via portal (`createPortal` pro `document.body`) — a
+  sidebar tem `overflow-hidden` pros cantos arredondados, então um
+  popup posicionado normalmente (absolute) cortava, principalmente
+  recolhida (80px de largura, popup de 256px). Portal escapa desse
+  corte; posição calculada a partir do `getBoundingClientRect()` do
+  gatilho.
+
 ## 2026-08-26 — Fix: radius faltando no Main Content (topbar+conteúdo)
 
 O "Main Content" (topbar + área principal, ambos dentro do Main Content
