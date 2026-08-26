@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-08-26 — Fix: fundo da página não mudava no modo escuro
+
+Os dois agentes que implementaram o dark mode cuidaram de cada
+componente (cards, sidebar, modais) mas o wrapper raiz do dashboard
+(`EstudarDashboard.tsx`) e o `body` global ficaram de fora do escopo —
+o fundo por trás dos cards continuava cinza claro (#F5F5F5) mesmo com
+tudo escuro em volta, visível principalmente em telas largas. Corrigido
+com `dark:bg-[#0e121b]` no wrapper raiz, no `<main>`, e uma regra
+`:root.dark body` no CSS global.
+
 ## 2026-08-26 — Fix: Dashboard dentro do grupo Estudar (deveria ser item próprio) + width Checklist
 
 - Conferindo o frame exato do dashboard dark (140:274363) direto na

@@ -31,3 +31,8 @@ body {
   background: var(--color-bg-weak-50);
   color: var(--color-text-strong-950);
 }
+
+:root.dark body {
+  background: #0e121b;
+  color: #f8fafc;
+}
