@@ -1,56 +1,41 @@
 import { useRef, useState } from "react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import type { IconSvgElement } from "@hugeicons/react";
+import {
+  ArrowLeft01Icon,
+  GraduationCapIcon,
+  DashboardSquare01Icon,
+  CircleQuestionMarkIcon,
+  Cards02Icon,
+  Timer01Icon,
+  Calendar01Icon,
+  RepeatIcon,
+  BookEditIcon,
+  Bookmark01Icon,
+  LibraryIcon,
+  Analytics01Icon,
+  RankingIcon,
+  Chart01Icon,
+  ChevronDownIcon,
+} from "@hugeicons/core-free-icons";
 import { useTheme } from "../../contexts/ThemeContext";
 import logo from "../../assets/figma/sidebar_logo_export.png";
-import iconArrowDown01 from "../../assets/figma/icon_arrow-down-01.svg";
-import iconArrowDown02 from "../../assets/figma/icon_arrow-down-02.svg";
-import iconArrowDownDouble from "../../assets/figma/icon_arrow-down-double.svg";
 import sidebarLine from "../../assets/figma/sidebar_line1.svg";
-import iconEstudar from "../../assets/figma/icon_estudar.svg";
-import iconDashboard from "../../assets/figma/icon_dashboard.svg";
-import iconQuestoes from "../../assets/figma/icon_questoes.svg";
-import iconFlashcards from "../../assets/figma/icon_flashcards.svg";
-import iconSimulados from "../../assets/figma/icon_simulados.svg";
-import iconCronograma from "../../assets/figma/icon_cronograma.svg";
-import iconRevisar from "../../assets/figma/icon_revisar.svg";
-import iconDesempenho from "../../assets/figma/icon_desempenho.svg";
-import iconCadernoErros from "../../assets/figma/icon_caderno-erros.svg";
-import iconQuestoesSalvas from "../../assets/figma/icon_questoes-salvas.svg";
-import iconBiblioteca from "../../assets/figma/icon_biblioteca.svg";
-import iconRanking from "../../assets/figma/icon_ranking.svg";
-import iconEstatisticas from "../../assets/figma/icon_estatisticas.svg";
 import promoStudents from "../../assets/figma/sidebar_promo_students.png";
 import avatar from "../../assets/figma/sidebar_avatar.jpg";
 import AccountMenu from "./AccountMenu";
 
-import darkArrowDown01 from "../../assets/figma/dark/icon_arrow-down-01.svg";
-import darkArrowDown02 from "../../assets/figma/dark/icon_arrow-down-02.svg";
-import darkArrowDownDouble from "../../assets/figma/dark/icon_arrow-down-double.svg";
 import darkSidebarLine from "../../assets/figma/dark/sidebar_line.svg";
-import darkIconEstudar from "../../assets/figma/dark/icon_estudar.svg";
-import darkIconDashboard from "../../assets/figma/dark/icon_dashboard.svg";
-import darkIconQuestoes from "../../assets/figma/dark/icon_questoes.svg";
-import darkIconFlashcards from "../../assets/figma/dark/icon_flashcards.svg";
-import darkIconProvas from "../../assets/figma/dark/icon_provas.svg";
-import darkIconCronograma from "../../assets/figma/dark/icon_cronograma.svg";
-import darkIconRevisar from "../../assets/figma/dark/icon_revisar.svg";
-import darkIconDesempenho from "../../assets/figma/dark/icon_desempenho.svg";
-import darkIconCadernoErros from "../../assets/figma/dark/icon_caderno-erros.svg";
-import darkIconQuestoesSalvas from "../../assets/figma/dark/icon_questoes-salvas.svg";
-import darkIconBiblioteca from "../../assets/figma/dark/icon_biblioteca.svg";
-import darkIconRanking from "../../assets/figma/dark/icon_ranking.svg";
-import darkIconEstatisticas from "../../assets/figma/dark/icon_estatisticas.svg";
 
 interface NavItem {
-  icon: string;
-  darkIcon: string;
+  icon: IconSvgElement;
   label: string;
   active?: boolean;
 }
 
 interface NavGroup {
   key: string;
-  icon: string;
-  darkIcon: string;
+  icon: IconSvgElement;
   label: string;
   items: NavItem[];
 }
@@ -58,35 +43,32 @@ interface NavGroup {
 const navGroups: NavGroup[] = [
   {
     key: "estudar",
-    icon: iconEstudar,
-    darkIcon: darkIconEstudar,
+    icon: GraduationCapIcon,
     label: "Estudar",
     items: [
-      { icon: iconQuestoes, darkIcon: darkIconQuestoes, label: "Questões" },
-      { icon: iconFlashcards, darkIcon: darkIconFlashcards, label: "Flashcards" },
-      { icon: iconSimulados, darkIcon: darkIconProvas, label: "Provas" },
-      { icon: iconCronograma, darkIcon: darkIconCronograma, label: "Cronograma" },
+      { icon: CircleQuestionMarkIcon, label: "Questões" },
+      { icon: Cards02Icon, label: "Flashcards" },
+      { icon: Timer01Icon, label: "Provas" },
+      { icon: Calendar01Icon, label: "Cronograma" },
     ],
   },
   {
     key: "revisar",
-    icon: iconRevisar,
-    darkIcon: darkIconRevisar,
+    icon: RepeatIcon,
     label: "Revisar",
     items: [
-      { icon: iconCadernoErros, darkIcon: darkIconCadernoErros, label: "Caderno de Erros" },
-      { icon: iconQuestoesSalvas, darkIcon: darkIconQuestoesSalvas, label: "Questões Salvas" },
-      { icon: iconBiblioteca, darkIcon: darkIconBiblioteca, label: "Biblioteca" },
+      { icon: BookEditIcon, label: "Caderno de Erros" },
+      { icon: Bookmark01Icon, label: "Questões Salvas" },
+      { icon: LibraryIcon, label: "Biblioteca" },
     ],
   },
   {
     key: "desempenho",
-    icon: iconDesempenho,
-    darkIcon: darkIconDesempenho,
+    icon: Analytics01Icon,
     label: "Desempenho",
     items: [
-      { icon: iconRanking, darkIcon: darkIconRanking, label: "Ranking" },
-      { icon: iconEstatisticas, darkIcon: darkIconEstatisticas, label: "Estatísticas" },
+      { icon: RankingIcon, label: "Ranking" },
+      { icon: Chart01Icon, label: "Estatísticas" },
     ],
   },
 ];
@@ -142,10 +124,10 @@ export default function Sidebar() {
               collapsed ? "" : "ml-auto"
             }`}
           >
-            <img
-              alt=""
-              src={isDark ? darkArrowDown01 : iconArrowDown01}
-              className={`size-5 transition-transform ${collapsed ? "-rotate-90" : "rotate-90"}`}
+            <HugeiconsIcon
+              icon={ArrowLeft01Icon}
+              size={20}
+              className={`text-[#99a0ae] transition-transform dark:text-[#94a3b8] ${collapsed ? "rotate-180" : ""}`}
             />
           </button>
         </div>
@@ -160,7 +142,11 @@ export default function Sidebar() {
                 collapsed ? "justify-center" : ""
               }`}
             >
-              <img alt="" src={isDark ? darkIconDashboard : iconDashboard} className="size-5 shrink-0" />
+              <HugeiconsIcon
+                icon={DashboardSquare01Icon}
+                size={20}
+                className="shrink-0 text-[#99a0ae] dark:text-[#94a3b8]"
+              />
               {!collapsed && (
                 <p className="whitespace-nowrap font-sans text-[12px] font-bold tracking-[-0.072px] text-[#62748e] dark:text-[#94a3b8]">
                   Dashboard
@@ -181,7 +167,7 @@ export default function Sidebar() {
                     className="flex w-full items-center justify-between rounded-lg px-3 py-2 hover:bg-bg-soft-200 dark:hover:bg-[#222530]"
                   >
                     <div className="flex items-center gap-2">
-                      <img alt="" src={isDark ? group.darkIcon : group.icon} className="size-5 shrink-0" />
+                      <HugeiconsIcon icon={group.icon} size={20} className="shrink-0 text-[#99a0ae] dark:text-[#94a3b8]" />
                       {!collapsed && (
                         <p className="whitespace-nowrap font-sans text-[12px] font-bold tracking-[-0.072px] text-[#62748e] dark:text-[#94a3b8]">
                           {group.label}
@@ -189,10 +175,10 @@ export default function Sidebar() {
                       )}
                     </div>
                     {!collapsed && (
-                      <img
-                        alt=""
-                        src={isDark ? darkArrowDown02 : iconArrowDown02}
-                        className={`size-5 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                      <HugeiconsIcon
+                        icon={ChevronDownIcon}
+                        size={20}
+                        className={`text-[#99a0ae] transition-transform dark:text-[#94a3b8] ${isOpen ? "rotate-180" : ""}`}
                       />
                     )}
                   </button>
@@ -208,7 +194,7 @@ export default function Sidebar() {
                           collapsed ? "justify-center" : ""
                         } ${item.active ? "bg-[#f1f5f9] dark:bg-[#020617]" : ""}`}
                       >
-                        <img alt="" src={isDark ? item.darkIcon : item.icon} className="size-5 shrink-0" />
+                        <HugeiconsIcon icon={item.icon} size={20} className="shrink-0 text-[#99a0ae] dark:text-[#94a3b8]" />
                         {!collapsed && (
                           <p className="whitespace-nowrap font-sans text-[14px] font-light text-text-soft-400 dark:text-[#94a3b8]">
                             {item.label}
@@ -276,10 +262,10 @@ export default function Sidebar() {
                   arthur@testhive.com
                 </p>
               </div>
-              <img
-                alt=""
-                src={isDark ? darkArrowDownDouble : iconArrowDownDouble}
-                className={`size-5 shrink-0 transition-transform ${accountOpen ? "rotate-180" : ""}`}
+              <HugeiconsIcon
+                icon={ChevronDownIcon}
+                size={20}
+                className={`shrink-0 text-[#99a0ae] transition-transform dark:text-[#94a3b8] ${accountOpen ? "rotate-180" : ""}`}
               />
             </div>
           </button>

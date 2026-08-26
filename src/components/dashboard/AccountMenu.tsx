@@ -1,22 +1,21 @@
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
+import { HugeiconsIcon } from "@hugeicons/react";
+import type { IconSvgElement } from "@hugeicons/react";
+import { User02Icon, CardExchange01Icon, CustomerSupportIcon, Logout01Icon } from "@hugeicons/core-free-icons";
 import { useTheme } from "../../contexts/ThemeContext";
 import divider from "../../assets/figma/account_divider.svg";
 import darkDivider from "../../assets/figma/dark/account_divider.svg";
-import iconPerfil from "../../assets/figma/account_icon_perfil.svg";
-import iconAssinatura from "../../assets/figma/account_icon_assinatura.svg";
-import iconSuporte from "../../assets/figma/account_icon_suporte.svg";
-import iconSair from "../../assets/figma/account_icon_sair.svg";
 
 interface AccountMenuProps {
   onClose: () => void;
   anchor: { left: number; bottom: number };
 }
 
-const items = [
-  { icon: iconPerfil, label: "Perfil" },
-  { icon: iconAssinatura, label: "Assinatura" },
-  { icon: iconSuporte, label: "Suporte" },
+const items: { icon: IconSvgElement; label: string }[] = [
+  { icon: User02Icon, label: "Perfil" },
+  { icon: CardExchange01Icon, label: "Assinatura" },
+  { icon: CustomerSupportIcon, label: "Suporte" },
 ];
 
 export default function AccountMenu({ onClose, anchor }: AccountMenuProps) {
@@ -66,7 +65,7 @@ export default function AccountMenu({ onClose, anchor }: AccountMenuProps) {
             type="button"
             className="flex h-[42px] w-full items-center gap-2 rounded-lg px-3 py-2 hover:bg-bg-soft-200 dark:hover:bg-[#222530]"
           >
-            <img alt="" src={item.icon} className="size-5 shrink-0" />
+            <HugeiconsIcon icon={item.icon} size={20} className="shrink-0 text-[#99a0ae] dark:text-[#94a3b8]" />
             <span className="text-[14px] font-light text-text-soft-400 dark:text-[#94a3b8]">{item.label}</span>
           </button>
         ))}
@@ -79,7 +78,7 @@ export default function AccountMenu({ onClose, anchor }: AccountMenuProps) {
           type="button"
           className="flex h-[42px] w-full items-center gap-2 rounded-lg px-2.5 py-2 hover:bg-bg-soft-200 dark:hover:bg-[#222530]"
         >
-          <img alt="" src={iconSair} className="size-5 shrink-0" />
+          <HugeiconsIcon icon={Logout01Icon} size={20} className="shrink-0 text-[#f5707b]" />
           <span className="text-[14px] font-light text-[#fb2c36]">Sair</span>
         </button>
       </div>

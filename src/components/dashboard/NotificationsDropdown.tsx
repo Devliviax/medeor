@@ -1,9 +1,8 @@
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { GraduationCapIcon, IdCardIcon, BellIcon } from "@hugeicons/core-free-icons";
 import { useTheme } from "../../contexts/ThemeContext";
-import iconMessage from "../../assets/figma/notif_icon_message.svg";
-import iconCpf from "../../assets/figma/notif_icon_cpf.svg";
-import iconBell from "../../assets/figma/notif_icon_bell.svg";
 import divider from "../../assets/figma/notif_divider.svg";
 import darkDivider from "../../assets/figma/dark/notif_divider.svg";
 
@@ -51,23 +50,7 @@ export default function NotificationsDropdown({ onClose, anchor }: Notifications
       <div className="flex w-full flex-col items-start">
         <div className="flex w-full items-start gap-4 px-5 py-2.5">
           <div className="flex size-8 shrink-0 items-center justify-center rounded-[5px] bg-[#99a0ae]">
-            <div
-              className="bg-white"
-              style={{
-                width: 26.483,
-                height: 28.138,
-                marginLeft: -2.48,
-                marginTop: -3.31,
-                WebkitMaskImage: `url(${iconMessage})`,
-                maskImage: `url(${iconMessage})`,
-                WebkitMaskRepeat: "no-repeat",
-                maskRepeat: "no-repeat",
-                WebkitMaskPosition: "2.483px 3.31px",
-                maskPosition: "2.483px 3.31px",
-                WebkitMaskSize: "22.286px 24px",
-                maskSize: "22.286px 24px",
-              }}
-            />
+            <HugeiconsIcon icon={GraduationCapIcon} size={20} className="text-white" />
           </div>
           <div className="flex min-w-0 flex-1 flex-col items-start">
             <p className="text-[14px] font-medium tracking-[-0.15px] text-[#15181e] dark:text-[#f8fafc]">
@@ -85,7 +68,7 @@ export default function NotificationsDropdown({ onClose, anchor }: Notifications
       <div className="flex w-full flex-col items-start">
         <div className="flex w-full items-start gap-4 px-5 py-2.5">
           <div className="flex size-8 shrink-0 items-center justify-center rounded-[5px] bg-[#99a0ae]">
-            <img alt="" src={iconCpf} className="size-[19px]" />
+            <HugeiconsIcon icon={IdCardIcon} size={19} className="text-white" />
           </div>
           <div className="flex min-w-0 flex-1 flex-col items-start">
             <p className="text-[14px] font-medium tracking-[-0.15px] text-[#15181e] dark:text-[#f8fafc]">
@@ -102,7 +85,7 @@ export default function NotificationsDropdown({ onClose, anchor }: Notifications
       <div className="flex w-full flex-col items-start">
         <div className="flex w-full items-start gap-4 px-5 py-2.5">
           <div className="flex size-8 shrink-0 items-center justify-center rounded-[5px] bg-[#99a0ae]">
-            <img alt="" src={iconBell} className="size-5" />
+            <HugeiconsIcon icon={BellIcon} size={20} className="text-white" />
           </div>
           <div className="flex min-w-0 flex-1 flex-col items-start">
             <p className="text-[14px] font-medium tracking-[-0.15px] text-[#15181e] dark:text-[#f8fafc]">

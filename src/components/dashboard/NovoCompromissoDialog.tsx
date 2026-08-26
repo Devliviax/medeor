@@ -1,38 +1,30 @@
 import { useEffect, useState } from "react";
-import { useTheme } from "../../contexts/ThemeContext";
-import iconClose from "../../assets/figma/icon_close.svg";
-import iconChevronDown from "../../assets/figma/icon_chevron-down.svg";
-import iconCategoryProva from "../../assets/figma/icon_category-prova.svg";
-import iconCategoryAula from "../../assets/figma/icon_category-aula.svg";
-import iconCategoryEstudo from "../../assets/figma/icon_category-estudo.svg";
-import iconCategoryLembrete from "../../assets/figma/icon_category-lembrete.svg";
-import iconCategoryPessoal from "../../assets/figma/icon_category-pessoal.svg";
-import iconCategoryMentoria from "../../assets/figma/icon_category-mentoria.svg";
-import darkIconClose from "../../assets/figma/dark/icon_close.svg";
-import darkIconChevronDown from "../../assets/figma/dark/icon_chevron-down.svg";
-import darkIconCategoryProva from "../../assets/figma/dark/icon_category-prova.svg";
-import darkIconCategoryAula from "../../assets/figma/dark/icon_category-aula.svg";
-import darkIconCategoryEstudo from "../../assets/figma/dark/icon_category-estudo.svg";
-import darkIconCategoryLembrete from "../../assets/figma/dark/icon_category-lembrete.svg";
-import darkIconCategoryPessoal from "../../assets/figma/dark/icon_category-pessoal.svg";
-import darkIconCategoryMentoria from "../../assets/figma/dark/icon_category-mentoria.svg";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  Cancel01Icon,
+  ChevronDownIcon,
+  Timer01Icon,
+  Presentation01Icon,
+  Book01Icon,
+  AlarmClockIcon,
+  User02Icon,
+  MentoringIcon,
+} from "@hugeicons/core-free-icons";
 
 type Category = "Prova" | "Aula" | "Estudo" | "Lembrete" | "Pessoal" | "Mentoria";
 
-const categories: { value: Category; icon: string; darkIcon: string }[] = [
-  { value: "Prova", icon: iconCategoryProva, darkIcon: darkIconCategoryProva },
-  { value: "Aula", icon: iconCategoryAula, darkIcon: darkIconCategoryAula },
-  { value: "Estudo", icon: iconCategoryEstudo, darkIcon: darkIconCategoryEstudo },
-  { value: "Lembrete", icon: iconCategoryLembrete, darkIcon: darkIconCategoryLembrete },
-  { value: "Pessoal", icon: iconCategoryPessoal, darkIcon: darkIconCategoryPessoal },
-  { value: "Mentoria", icon: iconCategoryMentoria, darkIcon: darkIconCategoryMentoria },
+const categories: { value: Category; icon: typeof Cancel01Icon }[] = [
+  { value: "Prova", icon: Timer01Icon },
+  { value: "Aula", icon: Presentation01Icon },
+  { value: "Estudo", icon: Book01Icon },
+  { value: "Lembrete", icon: AlarmClockIcon },
+  { value: "Pessoal", icon: User02Icon },
+  { value: "Mentoria", icon: MentoringIcon },
 ];
 
 type Props = { open: boolean; onClose: () => void };
 
 export default function NovoCompromissoDialog({ open, onClose }: Props) {
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
   const [titulo, setTitulo] = useState("");
   const [categoria, setCategoria] = useState<Category>("Estudo");
   const [diaInteiro, setDiaInteiro] = useState(false);
@@ -78,7 +70,7 @@ export default function NovoCompromissoDialog({ open, onClose }: Props) {
           onClick={onClose}
           className="absolute right-4 top-4 flex size-6 items-center justify-center rounded-[10.4px] opacity-70"
         >
-          <img alt="" src={isDark ? darkIconClose : iconClose} className="size-4" />
+          <HugeiconsIcon icon={Cancel01Icon} size={16} className="text-[#0f1f37] dark:text-white" />
         </button>
 
         <div className="flex flex-col items-start">
@@ -123,7 +115,11 @@ export default function NovoCompromissoDialog({ open, onClose }: Props) {
                         : "border-[#e1e5ea] bg-bg-white-0 text-[#6a727d] dark:border-[#334155] dark:bg-[#181b25] dark:text-[#6a727d]"
                     }`}
                   >
-                    <img alt="" src={isDark ? cat.darkIcon : cat.icon} className="size-4" />
+                    <HugeiconsIcon
+                      icon={cat.icon}
+                      size={16}
+                      className={active ? "text-[#0f1f37] dark:text-white" : "text-[#6a727d] dark:text-[#6a727d]"}
+                    />
                     <span>{cat.value}</span>
                   </button>
                 );
@@ -233,10 +229,10 @@ export default function NovoCompromissoDialog({ open, onClose }: Props) {
                 <option>Semanalmente</option>
                 <option>Mensalmente</option>
               </select>
-              <img
-                alt=""
-                src={isDark ? darkIconChevronDown : iconChevronDown}
-                className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2"
+              <HugeiconsIcon
+                icon={ChevronDownIcon}
+                size={16}
+                className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#0f1f37] dark:text-white"
               />
             </div>
           </div>

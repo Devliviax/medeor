@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { useTheme } from "../../contexts/ThemeContext";
-import iconCheck from "../../assets/figma/icon_check.svg";
-import darkIconCheck from "../../assets/figma/dark/icon_check.svg";
-import iconCheckFilled from "../../assets/figma/icon_check-filled.svg";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Tick01Icon } from "@hugeicons/core-free-icons";
 
 const items = [
   { label: "Questão do dia", progress: "0/1" },
@@ -12,8 +10,6 @@ const items = [
 ];
 
 export default function ChecklistDoDia() {
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
   const [checked, setChecked] = useState<boolean[]>(() => items.map(() => false));
 
   const toggle = (i: number) => setChecked((prev) => prev.map((v, idx) => (idx === i ? !v : v)));
@@ -42,7 +38,11 @@ export default function ChecklistDoDia() {
                     isChecked ? "bg-[#1daf61]" : "bg-bg-white-0 dark:bg-[#0f172a]"
                   }`}
                 >
-                  <img alt="" src={isChecked ? iconCheckFilled : isDark ? darkIconCheck : iconCheck} className="size-3" />
+                  <HugeiconsIcon
+                    icon={Tick01Icon}
+                    size={12}
+                    className={isChecked ? "text-white" : "text-[#6d7279] dark:text-[#94a3b8]"}
+                  />
                 </span>
                 <p
                   className={`text-[14px] tracking-[-0.1504px] ${

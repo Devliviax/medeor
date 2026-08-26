@@ -1,35 +1,24 @@
-import { useTheme } from "../../contexts/ThemeContext";
-import iconStatQuestoes from "../../assets/figma/icon_stat-questoes.svg";
-import iconStatGeneric from "../../assets/figma/icon_stat-generic.svg";
-import darkIconStatQuestoes from "../../assets/figma/dark/icon_stat-questoes.svg";
-import darkIconStatGeneric from "../../assets/figma/dark/icon_stat-generic.svg";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { AnalyticsUpIcon } from "@hugeicons/core-free-icons";
 
 const cards = [
   {
     dark: true,
-    icon: iconStatQuestoes,
-    darkIcon: darkIconStatQuestoes,
     label: "Questões hoje",
     value: "0/7",
     caption: "meta diária",
   },
   {
-    icon: iconStatGeneric,
-    darkIcon: darkIconStatGeneric,
     label: "Semana",
     value: "0%",
     caption: "0 de 50 questões",
   },
   {
-    icon: iconStatGeneric,
-    darkIcon: darkIconStatGeneric,
     label: "Aproveitamento",
     value: "0%",
     caption: "sem acertos ainda",
   },
   {
-    icon: iconStatGeneric,
-    darkIcon: darkIconStatGeneric,
     label: "Consistência",
     value: "1 dia",
     caption: "recorde de 1 dia",
@@ -37,9 +26,6 @@ const cards = [
 ];
 
 export default function StatCards() {
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
-
   return (
     <div className="flex h-[148px] w-full flex-wrap gap-4">
       {cards.map((card) => (
@@ -59,7 +45,15 @@ export default function StatCards() {
             >
               {card.label}
             </p>
-            <img alt="" src={isDark ? card.darkIcon : card.icon} className="size-4" />
+            <HugeiconsIcon
+              icon={AnalyticsUpIcon}
+              size={16}
+              className={
+                card.dark
+                  ? "text-[rgba(249,250,251,0.6)] dark:text-[rgba(248,250,252,0.6)]"
+                  : "text-[#6d7279] dark:text-[#94a3b8]"
+              }
+            />
           </div>
           <p
             className={`h-[60px] pt-6 text-[30px] font-bold tracking-[-0.3545px] ${

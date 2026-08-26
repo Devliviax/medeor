@@ -1,10 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import iconBell from "../../assets/figma/icon_bell.svg";
-import iconMoon from "../../assets/figma/icon_moon.svg";
-import iconSearch from "../../assets/figma/icon_search-01.svg";
-import darkIconBell from "../../assets/figma/dark/icon_bell.svg";
-import darkIconMoon from "../../assets/figma/dark/icon_moon.svg";
-import darkIconSearch from "../../assets/figma/dark/icon_search-01.svg";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { BellIcon, Moon02Icon, Search01Icon } from "@hugeicons/core-free-icons";
 import NotificationsDropdown from "./NotificationsDropdown";
 import SearchDialog from "./SearchDialog";
 import { useTheme } from "../../contexts/ThemeContext";
@@ -14,7 +10,6 @@ type ActivePanel = "notifications" | "search" | null;
 export default function Topbar() {
   const [activePanel, setActivePanel] = useState<ActivePanel>(null);
   const { theme, toggleTheme } = useTheme();
-  const isDark = theme === "dark";
   const [notifAnchor, setNotifAnchor] = useState({ top: 0, right: 0 });
   const bellWrapRef = useRef<HTMLDivElement>(null);
 
@@ -51,7 +46,7 @@ export default function Topbar() {
         <div className="flex items-center gap-3.5">
           <div ref={bellWrapRef} className="relative">
             <button aria-label="Notificações" className="size-6" onClick={toggleNotifications}>
-              <img alt="" src={isDark ? darkIconBell : iconBell} className="size-full" />
+              <HugeiconsIcon icon={BellIcon} size={24} className="text-[#525866] dark:text-[#94a3b8]" />
             </button>
             {activePanel === "notifications" && (
               <NotificationsDropdown anchor={notifAnchor} onClose={() => setActivePanel(null)} />
@@ -63,14 +58,14 @@ export default function Topbar() {
             className="size-6"
             onClick={toggleTheme}
           >
-            <img alt="" src={isDark ? darkIconMoon : iconMoon} className="size-full" />
+            <HugeiconsIcon icon={Moon02Icon} size={24} className="text-[#525866] dark:text-[#94a3b8]" />
           </button>
           <button
             aria-label="Buscar"
             className="size-6"
             onClick={() => setActivePanel((prev) => (prev === "search" ? null : "search"))}
           >
-            <img alt="" src={isDark ? darkIconSearch : iconSearch} className="size-full" />
+            <HugeiconsIcon icon={Search01Icon} size={24} className="text-[#525866] dark:text-[#94a3b8]" />
           </button>
         </div>
       </div>

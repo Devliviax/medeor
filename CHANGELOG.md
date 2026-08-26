@@ -1,5 +1,25 @@
 # Changelog
 
+## 2026-08-26 — Refactor: todos os ícones migrados pra Hugeicons
+
+Os ícones exportados do Figma eram, na verdade, da biblioteca
+[Hugeicons](https://hugeicons.com). Trocado todo o app (13 componentes)
+pra usar `@hugeicons/react` + `@hugeicons/core-free-icons` de verdade
+em vez de SVGs soltos baixados um por um:
+
+- Cada ícone agora é `<HugeiconsIcon icon={XIcon} size={N}
+  className="text-... dark:text-..."/>`, cor via `currentColor` — isso
+  elimina a necessidade de baixar/importar um SVG claro E um escuro
+  por ícone (padrão que vinha desde o início do dark mode).
+- Checklist do dia e Questão Relâmpago: um único ícone (`Tick01Icon`)
+  cobre os dois estados (marcado/desmarcado), diferenciado só pela cor.
+- ~110 arquivos SVG órfãos removidos de `src/assets/figma/` (claro e
+  escuro) — incluindo alguns que já estavam órfãos de correções bem
+  anteriores nessa sessão (gráfico antigo, ícones de stat mal
+  mapeados, composição antiga da logo).
+- Mapeamento completo ícone→Hugeicons documentado e aplicado
+  consistentemente em todo o app via 3 agentes paralelos.
+
 ## 2026-08-26 — Novo: checklist do dia clicável (marcar/desmarcar item)
 
 Os itens do "Checklist do dia" eram só visuais, sem interação. Pelo

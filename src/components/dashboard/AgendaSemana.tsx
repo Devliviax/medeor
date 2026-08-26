@@ -1,20 +1,15 @@
 import { useState } from "react";
-import { useTheme } from "../../contexts/ThemeContext";
-import iconViewDay from "../../assets/figma/icon_calendar-view-day.svg";
-import iconViewWeek from "../../assets/figma/icon_calendar-view-week.svg";
-import iconViewList from "../../assets/figma/icon_calendar-view-list.svg";
-import iconChevronLeft from "../../assets/figma/icon_chevron-left.svg";
-import iconChevronRight from "../../assets/figma/icon_chevron-right.svg";
-import iconPlus from "../../assets/figma/icon_plus.svg";
-import iconMoreDots from "../../assets/figma/icon_more-dots.svg";
-import iconDelete from "../../assets/figma/icon_delete.svg";
-import darkIconViewDay from "../../assets/figma/dark/icon_calendar-view-day.svg";
-import darkIconViewWeek from "../../assets/figma/dark/icon_calendar-view-week.svg";
-import darkIconViewList from "../../assets/figma/dark/icon_calendar-view-list.svg";
-import darkIconChevronLeft from "../../assets/figma/dark/icon_chevron-left.svg";
-import darkIconChevronRight from "../../assets/figma/dark/icon_chevron-right.svg";
-import darkIconMoreDots from "../../assets/figma/dark/icon_more-dots.svg";
-import darkIconDelete from "../../assets/figma/dark/icon_delete.svg";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  Calendar01Icon,
+  Grid2X2Icon,
+  LayoutListIcon,
+  ArrowLeft01Icon,
+  ArrowRight01Icon,
+  Add01Icon,
+  MoreHorizontalCircle01Icon,
+  Delete02Icon,
+} from "@hugeicons/core-free-icons";
 import NovoCompromissoDialog from "./NovoCompromissoDialog";
 
 type Event = { title: string; short: string; time: string; tone: "green" | "red" | "blue" };
@@ -80,15 +75,13 @@ const monthWeeks: { date: number; currentMonth: boolean; events?: Event[] }[][] 
 
 type View = "week" | "month" | "list";
 
-const viewButtons: { view: View; icon: string; darkIcon: string; label: string }[] = [
-  { view: "month", icon: iconViewDay, darkIcon: darkIconViewDay, label: "Button - Mês" },
-  { view: "week", icon: iconViewWeek, darkIcon: darkIconViewWeek, label: "Button - Semana" },
-  { view: "list", icon: iconViewList, darkIcon: darkIconViewList, label: "Button - Lista" },
+const viewButtons: { view: View; icon: typeof Calendar01Icon; label: string }[] = [
+  { view: "month", icon: Calendar01Icon, label: "Button - Mês" },
+  { view: "week", icon: Grid2X2Icon, label: "Button - Semana" },
+  { view: "list", icon: LayoutListIcon, label: "Button - Lista" },
 ];
 
 export default function AgendaSemana() {
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
   const [view, setView] = useState<View>("week");
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -119,7 +112,11 @@ export default function AgendaSemana() {
                     : ""
                 }`}
               >
-                <img alt="" src={isDark ? btn.darkIcon : btn.icon} className="size-4" />
+                <HugeiconsIcon
+                  icon={btn.icon}
+                  size={16}
+                  className={view === btn.view ? "text-[#0f1f37] dark:text-[#94a3b8]" : "text-[#6a727d] dark:text-[#94a3b8]"}
+                />
               </button>
             ))}
           </div>
@@ -128,14 +125,14 @@ export default function AgendaSemana() {
             aria-label="Semana anterior"
             className="flex size-9 items-center justify-center rounded-xl hover:bg-bg-soft-200 dark:hover:bg-[#222530]"
           >
-            <img alt="" src={isDark ? darkIconChevronLeft : iconChevronLeft} className="size-4" />
+            <HugeiconsIcon icon={ArrowLeft01Icon} size={16} className="text-[#0f1f37] dark:text-[#94a3b8]" />
           </button>
           <button
             type="button"
             aria-label="Próxima semana"
             className="flex size-9 items-center justify-center rounded-xl hover:bg-bg-soft-200 dark:hover:bg-[#222530]"
           >
-            <img alt="" src={isDark ? darkIconChevronRight : iconChevronRight} className="size-4" />
+            <HugeiconsIcon icon={ArrowRight01Icon} size={16} className="text-[#0f1f37] dark:text-[#94a3b8]" />
           </button>
           <button
             type="button"
@@ -143,7 +140,7 @@ export default function AgendaSemana() {
             onClick={() => setDialogOpen(true)}
             className="flex size-9 items-center justify-center rounded-full bg-[#152946] drop-shadow-[0px_1px_1.5px_rgba(0,0,0,0.1)]"
           >
-            <img alt="" src={iconPlus} className="size-4" />
+            <HugeiconsIcon icon={Add01Icon} size={16} className="text-[#f6f9fc]" />
           </button>
         </div>
       </div>
@@ -178,7 +175,7 @@ export default function AgendaSemana() {
                     type="button"
                     className="mt-2 flex items-center justify-center rounded-[14.4px] py-2 hover:bg-bg-soft-200 dark:hover:bg-[#222530]"
                   >
-                    <img alt="" src={isDark ? darkIconMoreDots : iconMoreDots} className="size-3.5" />
+                    <HugeiconsIcon icon={MoreHorizontalCircle01Icon} size={14} className="text-[#6a727d] dark:text-[#94a3b8]" />
                   </button>
                 )}
                 {day.events.length === 0 && (
@@ -255,7 +252,7 @@ export default function AgendaSemana() {
                 aria-label="Remover"
                 className="flex size-9 shrink-0 items-center justify-center rounded-xl hover:bg-bg-soft-200 dark:hover:bg-[#222530]"
               >
-                <img alt="" src={isDark ? darkIconDelete : iconDelete} className="size-4" />
+                <HugeiconsIcon icon={Delete02Icon} size={16} className="text-[#0f1f37] dark:text-[#94a3b8]" />
               </button>
             </div>
           ))}

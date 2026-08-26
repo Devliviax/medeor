@@ -1,49 +1,26 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useTheme } from "../../contexts/ThemeContext";
-import iconSearch from "../../assets/figma/search_icon_search.svg";
-import iconAi from "../../assets/figma/search_icon_ai.svg";
-import iconRecent1 from "../../assets/figma/search_icon_recent1.svg";
-import iconRecent2 from "../../assets/figma/search_icon_recent2.svg";
-import iconQuickSearch from "../../assets/figma/search_icon_quick_search.svg";
-import iconQuickNew from "../../assets/figma/search_icon_quick_new.svg";
-import iconBookmark from "../../assets/figma/search_icon_bookmark.svg";
-import iconDashboard from "../../assets/figma/search_icon_dashboard.svg";
-import iconQuestoes from "../../assets/figma/search_icon_questoes.svg";
-import iconSimulados from "../../assets/figma/search_icon_simulados.svg";
-import iconFlashcards from "../../assets/figma/search_icon_flashcards.svg";
-import iconCronograma from "../../assets/figma/search_icon_cronograma.svg";
-import iconRanking from "../../assets/figma/search_icon_ranking.svg";
-import kbdUp from "../../assets/figma/search_kbd_up.svg";
-import kbdDown from "../../assets/figma/search_kbd_down.svg";
-import kbdEnter from "../../assets/figma/search_kbd_enter.svg";
-import kbdEsc from "../../assets/figma/search_kbd_esc.svg";
-import iconClose1 from "../../assets/figma/search_icon_close1.svg";
-import iconClose2 from "../../assets/figma/search_icon_close2.svg";
-
-import darkIconSearch from "../../assets/figma/dark/search_icon_search.svg";
-import darkIconAi from "../../assets/figma/dark/search_icon_ai.svg";
-import darkIconRecent1 from "../../assets/figma/dark/search_icon_recent1.svg";
-import darkIconRecent2 from "../../assets/figma/dark/search_icon_recent2.svg";
-import darkIconQuickSearch from "../../assets/figma/dark/search_icon_quick_search.svg";
-import darkIconQuickNew from "../../assets/figma/dark/search_icon_quick_new.svg";
-import darkIconBookmark from "../../assets/figma/dark/search_icon_bookmark.svg";
-import darkIconDashboard from "../../assets/figma/dark/search_icon_dashboard.svg";
-import darkIconQuestoes from "../../assets/figma/dark/search_icon_questoes.svg";
-import darkIconSimulados from "../../assets/figma/dark/search_icon_simulados.svg";
-import darkIconFlashcards from "../../assets/figma/dark/search_icon_flashcards.svg";
-import darkIconCronograma from "../../assets/figma/dark/search_icon_cronograma.svg";
-import darkIconRanking from "../../assets/figma/dark/search_icon_ranking.svg";
-import darkKbdUp from "../../assets/figma/dark/search_kbd_up.svg";
-import darkKbdDown from "../../assets/figma/dark/search_kbd_down.svg";
-import darkKbdEnter from "../../assets/figma/dark/search_kbd_enter.svg";
-import darkKbdEsc from "../../assets/figma/dark/search_kbd_esc.svg";
-import darkIconClose1 from "../../assets/figma/dark/search_icon_close1.svg";
-import darkIconClose2 from "../../assets/figma/dark/search_icon_close2.svg";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  Search01Icon,
+  SparklesIcon,
+  Clock01Icon,
+  Add01Icon,
+  Bookmark01Icon,
+  DashboardSquare01Icon,
+  CircleQuestionMarkIcon,
+  Timer01Icon,
+  Cards02Icon,
+  Calendar01Icon,
+  RankingIcon,
+  ArrowUp01Icon,
+  ArrowDown01Icon,
+  CornerDownLeftIcon,
+  Cancel01Icon,
+} from "@hugeicons/core-free-icons";
 
 interface SuggestionItem {
   id: string;
-  icon: string;
-  darkIcon: string;
+  icon: typeof Search01Icon;
   label: string;
 }
 
@@ -55,33 +32,33 @@ interface SuggestionGroup {
 const groups: SuggestionGroup[] = [
   {
     title: "Ações",
-    items: [{ id: "ai-plan", icon: iconAi, darkIcon: darkIconAi, label: "Pedir à IA para montar um plano de estudo" }],
+    items: [{ id: "ai-plan", icon: SparklesIcon, label: "Pedir à IA para montar um plano de estudo" }],
   },
   {
     title: "Buscas recentes",
     items: [
-      { id: "recent-1", icon: iconRecent1, darkIcon: darkIconRecent1, label: "Meningite bacteriana" },
-      { id: "recent-2", icon: iconRecent2, darkIcon: darkIconRecent2, label: "Insuficiência cardíaca" },
+      { id: "recent-1", icon: Clock01Icon, label: "Meningite bacteriana" },
+      { id: "recent-2", icon: Clock01Icon, label: "Insuficiência cardíaca" },
     ],
   },
   {
     title: "Ações rápidas",
     items: [
-      { id: "quick-search", icon: iconQuickSearch, darkIcon: darkIconQuickSearch, label: "Buscar questões, simulados e provas" },
-      { id: "quick-new", icon: iconQuickNew, darkIcon: darkIconQuickNew, label: "Iniciar nova sessão" },
-      { id: "quick-saved", icon: iconBookmark, darkIcon: darkIconBookmark, label: "Ver questões salvas" },
+      { id: "quick-search", icon: Search01Icon, label: "Buscar questões, simulados e provas" },
+      { id: "quick-new", icon: Add01Icon, label: "Iniciar nova sessão" },
+      { id: "quick-saved", icon: Bookmark01Icon, label: "Ver questões salvas" },
     ],
   },
   {
     title: "Páginas",
     items: [
-      { id: "page-dashboard", icon: iconDashboard, darkIcon: darkIconDashboard, label: "Dashboard" },
-      { id: "page-questoes", icon: iconQuestoes, darkIcon: darkIconQuestoes, label: "Questões" },
-      { id: "page-simulados", icon: iconSimulados, darkIcon: darkIconSimulados, label: "Simulados e Provas" },
-      { id: "page-flashcards", icon: iconFlashcards, darkIcon: darkIconFlashcards, label: "Flashcards" },
-      { id: "page-cronograma", icon: iconCronograma, darkIcon: darkIconCronograma, label: "Cronograma" },
-      { id: "page-ranking", icon: iconRanking, darkIcon: darkIconRanking, label: "Ranking" },
-      { id: "page-saved", icon: iconBookmark, darkIcon: darkIconBookmark, label: "Questões Salvas" },
+      { id: "page-dashboard", icon: DashboardSquare01Icon, label: "Dashboard" },
+      { id: "page-questoes", icon: CircleQuestionMarkIcon, label: "Questões" },
+      { id: "page-simulados", icon: Timer01Icon, label: "Simulados e Provas" },
+      { id: "page-flashcards", icon: Cards02Icon, label: "Flashcards" },
+      { id: "page-cronograma", icon: Calendar01Icon, label: "Cronograma" },
+      { id: "page-ranking", icon: RankingIcon, label: "Ranking" },
+      { id: "page-saved", icon: Bookmark01Icon, label: "Questões Salvas" },
     ],
   },
 ];
@@ -93,8 +70,6 @@ interface SearchDialogProps {
 }
 
 export default function SearchDialog({ onClose }: SearchDialogProps) {
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -140,13 +115,12 @@ export default function SearchDialog({ onClose }: SearchDialogProps) {
           onClick={onClose}
           className="absolute right-4 top-4 flex size-4 items-center justify-center opacity-70 hover:opacity-100"
         >
-          <img alt="" src={isDark ? darkIconClose1 : iconClose1} className="absolute size-full" />
-          <img alt="" src={isDark ? darkIconClose2 : iconClose2} className="absolute size-full" />
+          <HugeiconsIcon icon={Cancel01Icon} size={16} className="text-[#0f1926] dark:text-white" />
         </button>
 
         <div className="flex items-center gap-2 border-b border-[#e2e8f0] px-5 dark:border-[#334155]">
           <div className="flex shrink-0 items-start pr-2">
-            <img alt="" src={isDark ? darkIconSearch : iconSearch} className="size-5" />
+            <HugeiconsIcon icon={Search01Icon} size={20} className="text-[#62748e]" />
           </div>
           <input
             ref={inputRef}
@@ -176,7 +150,11 @@ export default function SearchDialog({ onClose }: SearchDialogProps) {
                       selectedId === item.id ? "bg-[#f1f5f9] dark:bg-[#181b25]" : ""
                     }`}
                   >
-                    <img alt="" src={isDark ? item.darkIcon : item.icon} className="size-4 shrink-0" />
+                    <HugeiconsIcon
+                      icon={item.icon}
+                      size={16}
+                      className={`shrink-0 ${item.id === "ai-plan" ? "text-[#12243e] dark:text-white" : "text-[#62748e]"}`}
+                    />
                     <span
                       className={`whitespace-nowrap text-[15px] tracking-[-0.23px] text-[#0f1926] ${
                         selectedId === item.id ? "dark:text-white" : "dark:text-[#cacfd8]"
@@ -194,24 +172,24 @@ export default function SearchDialog({ onClose }: SearchDialogProps) {
         <div className="flex items-center gap-5 border-t border-[#e2e8f0] bg-[rgba(241,245,249,0.4)] px-5 py-3 dark:border-[#334155] dark:bg-[#222530]">
           <div className="flex items-center gap-1.5">
             <div className="flex size-6 items-center justify-center rounded-lg bg-[#f1f5f9] dark:bg-[#181b25]">
-              <img alt="" src={isDark ? darkKbdUp : kbdUp} className="size-3.5" />
+              <HugeiconsIcon icon={ArrowUp01Icon} size={14} className="text-[#62748e]" />
             </div>
             <div className="flex items-center gap-1.5">
               <div className="flex size-6 items-center justify-center rounded-lg bg-[#f1f5f9] dark:bg-[#181b25]">
-                <img alt="" src={isDark ? darkKbdDown : kbdDown} className="size-3.5" />
+                <HugeiconsIcon icon={ArrowDown01Icon} size={14} className="text-[#62748e]" />
               </div>
               <p className="whitespace-nowrap text-[14px] tracking-[-0.15px] text-[#62748e]">navegar</p>
             </div>
           </div>
           <div className="flex items-center gap-1.5">
             <div className="flex size-6 items-center justify-center rounded-lg bg-[#f1f5f9] dark:bg-[#181b25]">
-              <img alt="" src={isDark ? darkKbdEnter : kbdEnter} className="size-3.5" />
+              <HugeiconsIcon icon={CornerDownLeftIcon} size={14} className="text-[#62748e]" />
             </div>
             <p className="whitespace-nowrap text-[14px] tracking-[-0.15px] text-[#62748e]">selecionar</p>
           </div>
           <div className="flex items-center gap-1.5">
-            <div className="flex size-6 items-center justify-center rounded-lg bg-[#f1f5f9] dark:bg-[#181b25]">
-              <img alt="" src={isDark ? darkKbdEsc : kbdEsc} className="size-3.5" />
+            <div className="flex h-6 items-center justify-center rounded-lg bg-[#f1f5f9] px-1.5 dark:bg-[#181b25]">
+              <p className="whitespace-nowrap text-[12px] font-medium tracking-[-0.15px] text-[#62748e]">Esc</p>
             </div>
             <p className="whitespace-nowrap text-[14px] tracking-[-0.15px] text-[#62748e]">fechar</p>
           </div>

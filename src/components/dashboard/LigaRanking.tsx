@@ -1,7 +1,8 @@
 import leagueAvatar from "../../assets/figma/dash_league_avatar.png";
-import iconLeagueBadge from "../../assets/figma/icon_league_badge.svg";
 import ringTrack from "../../assets/figma/dash_league_ring_vector.svg";
 import ringProgress from "../../assets/figma/dash_league_ring_vector2.svg";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { TrophyIcon } from "@hugeicons/core-free-icons";
 
 const weeks = [
   { label: "1–10 Ago", height: 41, dark: false },
@@ -36,7 +37,7 @@ export default function LigaRanking() {
             <img alt="" src={ringProgress} className="absolute inset-x-0 top-0 w-full" />
             <div className="absolute inset-0 flex items-center justify-center p-[5px]">
               <img alt="" src={leagueAvatar} className="size-full rounded-full object-cover" />
-              <img alt="" src={iconLeagueBadge} className="absolute size-6" />
+              <HugeiconsIcon icon={TrophyIcon} size={24} className="absolute text-white" />
             </div>
             <div className="absolute -bottom-1 left-1/2 flex h-[19px] w-10 -translate-x-1/2 items-center justify-center gap-px rounded-full bg-[#0f172b] px-2 py-0.5">
               <span className="text-[10px] font-medium text-[#f8fafc]">35</span>
