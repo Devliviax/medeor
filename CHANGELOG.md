@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-08-26 — Novo: checklist do dia clicável (marcar/desmarcar item)
+
+Os itens do "Checklist do dia" eram só visuais, sem interação. Pelo
+Figma, clicar num item marca ele: pill vira verde cheio
+(`rgba(31,193,107,0.16)` claro / `#0b4627` escuro), ícone check fica
+branco sólido num círculo `#1daf61`, texto branco no dark. Item
+desmarcado mantém a aparência de antes. Implementado com estado local
+por item, clicável, cores exatas pros dois temas.
+
 ## 2026-08-26 — Fix: popups de notificação e conta "acompanhando" o scroll
 
 Notificações e menu de conta ficavam "grudados" fora de lugar ao rolar
